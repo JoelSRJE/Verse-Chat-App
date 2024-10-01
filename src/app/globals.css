@@ -5,4 +5,18 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --overlay: linear-gradient(180deg, #4fdda9 0%, #2b775b 100%);
+  --greenHighlight: #4fdda9;
+}
+
+body {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  background: var(--background);
+  font-family: "Inter", sans-serif;
+}
+
+.overlay {
+  background: var(--overlay);
 }

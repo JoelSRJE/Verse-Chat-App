@@ -16,8 +16,6 @@ const LoginPage = () => {
     ));
   };
 
-  getChar();
-
   return (
     <div className="flex flex-row justify-center items-center w-screen h-screen">
       {/* left side */}
@@ -61,57 +59,59 @@ const LoginPage = () => {
               quick and easy!
             </span>
           </div>
-          <div>
-            <img src="/chattingsvg.svg" className="mb-4" />
+          <div className="flex flex-col w-[40rem]">
+            <img src="/chattingsvg.svg" className="w-auto h-auto mb-4" />
+            <span className="text-white font-medium text-center">
+              Stay connected, stay informed, and start chatting today!
+            </span>
           </div>
-          <span className="text-white font-medium">
-            Stay connected, stay informed, and start chatting today!
-          </span>
         </div>
       </div>
 
       {/* right side */}
-      <div className="flex flex-col flex-1 justify-center items-center w-screen h-screen bg-white rounded-l-[8px]">
-        <img src="/verselogo.png" alt="Verse logo" className="w-1/5 mb-8" />
-        <span className="text-3xl font-bold mb-12">Sign In</span>
-        <div className="flex flex-col gap-4 mb-4">
-          <div className="flex flex-col gap-1">
-            <span className="text-lg">Email</span>
-            <input
-              type="email"
-              placeholder="Email"
-              className="h-12 px-4 rounded-lg border-[1px] border-greenHighlight"
-            />
-          </div>
-          <div className="flex flex-col gap-1">
-            <span className="text-lg">Password</span>
-            <input
-              type="password"
-              placeholder="Password"
-              className="h-12 px-4 rounded-lg border-[1px] border-greenHighlight"
-            />
+      <div className="flex flex-col flex-1 justify-center items-center w-screen h-screen bg-white rounded-l-[8px] relative">
+        <div className="flex flex-col justify-center items-center mb-20">
+          <img src="/verselogo.png" alt="Verse logo" className="w-2/5 mb-8" />
+          <span className="text-3xl font-bold mb-12">Sign In</span>
+          <div className="flex flex-col gap-4 mb-4">
+            <div className="flex flex-col gap-1">
+              <span className="text-lg">Email</span>
+              <input
+                type="email"
+                placeholder="Email"
+                className="h-12 px-4 rounded-lg border-[1px] border-greenHighlight"
+              />
+            </div>
+            <div className="flex flex-col gap-1">
+              <span className="text-lg">Password</span>
+              <input
+                type="password"
+                placeholder="Password"
+                className="h-12 px-4 rounded-lg border-[1px] border-greenHighlight"
+              />
 
-            <button className="text-end text-sm hover:text-greenHighlight">
-              Forgot password?
+              <button className="text-end text-sm hover:text-greenHighlight">
+                Forgot password?
+              </button>
+            </div>
+          </div>
+          <div className="flex flex-row justify-start items-center gap-2 w-[12rem]">
+            <input type="checkbox" className="h-6 w-6 cursor-pointer" />
+            <span>Remember me</span>
+          </div>
+          <div className="flex flex-col justify-center items-center w-[12rem] gap-2 mt-2">
+            <button className="h-[2rem] w-[12rem] border-2 border-greenHighlight bg-greenHighlight rounded-lg ease-in duration-200 hover:bg-transparent">
+              Sign In
+            </button>
+            <div className="w-[8rem] h-[3px] rounded-lg bg-[#000000]/40" />
+            <button className="h-[2rem] w-[12rem] border-2 border-greenHighlight bg-greenHighlight rounded-lg ease-in duration-200 hover:bg-transparent">
+              Create Account
             </button>
           </div>
         </div>
-        <div className="flex flex-row justify-start items-center gap-2 w-[12rem]">
-          <input type="checkbox" className="h-6 w-6 cursor-pointer" />
-          <span>Remember me</span>
-        </div>
 
-        <div className="flex flex-col justify-center items-center w-[12rem] gap-2 mt-2">
-          <button className="h-[2rem] w-[12rem] border-2 border-greenHighlight bg-greenHighlight rounded-lg ease-in duration-200 hover:bg-transparent">
-            Sign In
-          </button>
-          <div className="w-[8rem] h-[3px] rounded-lg bg-[#000000]/40" />
-          <button className="h-[2rem] w-[12rem] border-2 border-greenHighlight bg-greenHighlight rounded-lg ease-in duration-200 hover:bg-transparent">
-            Create Account
-          </button>
-        </div>
-
-        <div className="flex items-center flex-row gap-4 mt-[4rem]">
+        {/* About / Contact */}
+        <div className="absolute bottom-4 flex items-center justify-center gap-4">
           <button className="font-semibold hover:text-greenHighlight">
             About
           </button>

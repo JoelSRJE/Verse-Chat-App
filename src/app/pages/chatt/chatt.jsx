@@ -38,113 +38,20 @@ const ChattApp = () => {
             picture: "/person2.png",
             message: "Hur är det själv?",
           },
+        ],
+      },
+      {
+        picture: "/person3.png",
+        name: "Johan Nyman",
+        online: { status: "busy", color: "#DD4F52" },
+        privateMessages: [
           {
             from: "Adam Smith",
             picture: "/person2.png",
             message: "Hej där!",
           },
           {
-            from: "Jacob Alpteg",
-            picture: "person1.png",
-            message: "Hej, allt bra?",
-          },
-          {
-            from: "Adam Smith",
-            picture: "/person2.png",
-            message: "Jodå, lever livet!",
-          },
-          {
-            from: "Adam Smith",
-            picture: "/person2.png",
-            message: "Hur är det själv?",
-          },
-          {
-            from: "Adam Smith",
-            picture: "/person2.png",
-            message: "Hej där!",
-          },
-          {
-            from: "Jacob Alpteg",
-            picture: "person1.png",
-            message: "Hej, allt bra?",
-          },
-          {
-            from: "Adam Smith",
-            picture: "/person2.png",
-            message: "Jodå, lever livet!",
-          },
-          {
-            from: "Adam Smith",
-            picture: "/person2.png",
-            message: "Hur är det själv?",
-          },
-          {
-            from: "Adam Smith",
-            picture: "/person2.png",
-            message: "Hej där!",
-          },
-          {
-            from: "Jacob Alpteg",
-            picture: "person1.png",
-            message: "Hej, allt bra?",
-          },
-          {
-            from: "Adam Smith",
-            picture: "/person2.png",
-            message: "Jodå, lever livet!",
-          },
-          {
-            from: "Adam Smith",
-            picture: "/person2.png",
-            message: "Hur är det själv?",
-          },
-          {
-            from: "Adam Smith",
-            picture: "/person2.png",
-            message: "Hej där!",
-          },
-          {
-            from: "Jacob Alpteg",
-            picture: "person1.png",
-            message: "Hej, allt bra?",
-          },
-          {
-            from: "Adam Smith",
-            picture: "/person2.png",
-            message: "Jodå, lever livet!",
-          },
-          {
-            from: "Adam Smith",
-            picture: "/person2.png",
-            message: "Hur är det själv?",
-          },
-          {
-            from: "Adam Smith",
-            picture: "/person2.png",
-            message: "Hej där!",
-          },
-          {
-            from: "Jacob Alpteg",
-            picture: "person1.png",
-            message: "Hej, allt bra?",
-          },
-          {
-            from: "Adam Smith",
-            picture: "/person2.png",
-            message: "Jodå, lever livet!",
-          },
-          {
-            from: "Adam Smith",
-            picture: "/person2.png",
-            message: "Hur är det själv?",
-          },
-          {
-            from: "Adam Smith",
-            picture: "/person2.png",
-            message: "Hej där!",
-          },
-          {
-            from: "Jacob Alpteg",
+            from: "Johan Nyman",
             picture: "person1.png",
             message: "Hej, allt bra?",
           },
@@ -159,11 +66,6 @@ const ChattApp = () => {
             message: "Hur är det själv?",
           },
         ],
-      },
-      {
-        picture: "/person3.png",
-        name: "Johan Nyman",
-        online: { status: "busy", color: "#DD4F52" },
       },
       {
         picture: "/person4.png",

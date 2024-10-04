@@ -35,16 +35,21 @@ const MainChat = ({ friend, currentUser }) => {
 
   if (!friend) {
     return (
-      <div className="w-[45rem] h-full bg-[#BDBCBC]/30">
-        <p className="text-center pt-4">
+      <div className="flex flex-col justify-between w-[45rem] h-full bg-[#000000]/80">
+        {/* Top section */}
+        <div className="flex  p-4 w-[45rem] h-[4rem]"></div>
+        {/* Middle Section */}
+        <p className="flex justify-center items-center h-full text-center pt-4 bg-[#BDBCBC]/30">
           Välj en vän för att visa konversationen.
         </p>
+        {/* Bottom section */}
+        <div className="w-[45rem] h-[5rem]"></div>
       </div>
     );
   }
 
   return (
-    <div className="flex flex-col justify-between w-[45rem] h-full">
+    <div className="flex  flex-col justify-between w-[45rem] h-full">
       {/* The person you're talking to */}
       <div className="flex items-center p-4 w-[45rem] h-[4rem] bg-[#000000]/80">
         <img
@@ -52,12 +57,12 @@ const MainChat = ({ friend, currentUser }) => {
           className="w-[2rem] h-auto mr-2"
           alt="Friend picture"
         />
-        <span className="text-white">{friend.name}</span>
+        <span className="text-white">{friend.username}</span>
       </div>
 
       {/* The conversation */}
       <div
-        className="flex flex-col w-[45rem] h-[calc(100vh-1rem)] p-2 gap-2 bg-[#BFBCBC]/10 overflow-scroll overflow-x-hidden
+        className="flex flex-col w-[45rem] h-[calc(100vh-1rem)] p-4 gap-2 bg-[#BFBCBC]/10 overflow-scroll overflow-x-hidden
         [&::-webkit-scrollbar]:w-2
         [&::-webkit-scrollbar-track]:rounded-full
         [&::-webkit-scrollbar-track]:bg-gray-300
@@ -71,13 +76,13 @@ const MainChat = ({ friend, currentUser }) => {
             <div
               key={idx}
               className={`flex ${
-                message.from === currentUser.name
+                message.from === currentUser.username
                   ? "justify-end"
                   : "justify-start"
               }`}
             >
               {/* Om meddelandet är från currentUser / friend */}
-              {message.from === currentUser.name ? (
+              {message.from === currentUser.username ? (
                 <div className="flex items-center space-x-2 group">
                   <div className="flex flex-col items-start">
                     <div className="relative bg-[#47a1f5]/70 text-white p-2 rounded-lg w-auto ">

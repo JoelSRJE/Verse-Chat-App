@@ -3,7 +3,6 @@ import React from "react";
 import { CiTrash } from "react-icons/ci";
 
 const SidebarFriendlist = ({ profile, onSelectFriend }) => {
-  console.log(profile.friends);
   const removeConversation = (friend) => {
     try {
       console.log("Removing friend:", friend);
@@ -13,7 +12,7 @@ const SidebarFriendlist = ({ profile, onSelectFriend }) => {
   };
 
   return (
-    <div className="flex flex-col justify-between w-[20rem] h-full bg-[#000000]/60 text-white">
+    <div className="flex flex-col justify-between w-[20rem] h-full bg-[#000000]/60 text-white overflow-x-hidden">
       <div className="flex flex-col">
         {profile[0].friends.map((friend, idx) => (
           <div
@@ -27,7 +26,7 @@ const SidebarFriendlist = ({ profile, onSelectFriend }) => {
                 className="w-[2rem] h-auto mr-2"
                 alt="Profile picture"
               />
-              <span>{friend.name}</span>
+              <span>{friend.username}</span>
             </div>
 
             <button
@@ -41,7 +40,7 @@ const SidebarFriendlist = ({ profile, onSelectFriend }) => {
       </div>
 
       {/* bottom */}
-      <div className="w-[20rem] h-[5rem] bg-[#000000]/50"></div>
+      <div className="w-[20rem] h-[4rem] bg-[#000000]/50"></div>
     </div>
   );
 };

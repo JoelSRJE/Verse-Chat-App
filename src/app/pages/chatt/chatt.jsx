@@ -129,11 +129,7 @@ const ChattApp = () => {
       <div className="flex  h-full bg-[#000000]/80 rounded-lg">
         {/* Side, groups etc */}
         <div className="flex">
-          <ChatSidebar
-            handleContentChange={handleContentChange}
-            showInfo={showInfo}
-            setShowInfo={setShowInfo}
-          />
+          <ChatSidebar handleContentChange={handleContentChange} />
         </div>
 
         {selectedContent === "welcome" && <WelcomePage profile={profile} />}

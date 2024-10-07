@@ -1,8 +1,9 @@
-import React from "react";
+import GroupModal from "@/app/pages/group/groupmodal/groupmodal";
+import React, { useState } from "react";
 import { CiChat1, CiSettings } from "react-icons/ci";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 
-const ChatSidebar = ({ handleContentChange }) => {
+const ChatSidebar = ({ handleContentChange, handleModal }) => {
   const groups = [{ poster: "/Elysian.webp" }, { poster: "verselogo.png" }];
 
   return (
@@ -50,6 +51,7 @@ const ChatSidebar = ({ handleContentChange }) => {
       <div className="flex flex-col h-auto gap-2 justify-center items-center mb-2">
         <button
           data-tooltip-id="add-group"
+          onClick={() => handleModal(true)}
           className="w-[3rem] h-[2.5rem] rounded-lg border-2 border-greenHighlight mb-2 hover:text-greenHighlight"
         >
           +
@@ -61,6 +63,8 @@ const ChatSidebar = ({ handleContentChange }) => {
           <CiSettings className="w-[2rem] h-[2rem] hover:text-greenHighlight" />
         </button>
       </div>
+
+      {/* tooltips */}
       <ReactTooltip id="home" place="bottom" content="Go to home" />
       <ReactTooltip
         id="message"
@@ -70,7 +74,7 @@ const ChatSidebar = ({ handleContentChange }) => {
       <ReactTooltip
         id="add-group"
         place="right"
-        content="Click here to add group"
+        content="Click here to add group or create your own"
       />
       <ReactTooltip
         id="settings"

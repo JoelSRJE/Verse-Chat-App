@@ -8,6 +8,7 @@ import MainChat from "@/app/components/mainchat/mainchat";
 import Details from "@/app/components/chattapp/frienddetails/details";
 import PrivateProfile from "../privateprofile/privateprofile";
 import WelcomePage from "../welcome/welcome";
+import GroupModal from "../group/groupmodal/groupmodal";
 
 const ChattApp = () => {
   const [selectedFriend, setSelectedFriend] = useState(null);
@@ -85,6 +86,7 @@ const ChattApp = () => {
   });
   const [selectedContent, setSelectedContent] = useState("welcome");
   const [activeConversation, setActiveConversation] = useState(false);
+  const [openGroupModal, setOpenGroupModal] = useState(false);
 
   const profile = [
     {
@@ -124,12 +126,19 @@ const ChattApp = () => {
     setSelectedContent(content);
   };
 
+  const handleModal = () => {
+    setOpenGroupModal(!openGroupModal);
+  };
+
   return (
     <div className="overlay flex flex-row justify-center items-center w-screen h-screen p-12 overflow-x-hidden">
       <div className="flex  h-full bg-[#000000]/80 rounded-lg">
         {/* Side, groups etc */}
         <div className="flex">
-          <ChatSidebar handleContentChange={handleContentChange} />
+          <ChatSidebar
+            handleContentChange={handleContentChange}
+            handleModal={handleModal}
+          />
         </div>
 
         {selectedContent === "welcome" && <WelcomePage profile={profile} />}
@@ -142,7 +151,9 @@ const ChattApp = () => {
           />
         )}
 
-        {/* Slut */}
+        {/* Group modal */}
+
+        {openGroupModal && <GroupModal setOpenGroupModal={setOpenGroupModal} />}
       </div>
     </div>
   );

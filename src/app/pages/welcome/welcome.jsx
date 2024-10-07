@@ -6,7 +6,7 @@ const WelcomePage = ({ profile }) => {
     <div className="flex flex-col justify-between w-[85rem] h-full">
       <div className="flex flex-row">
         <SidebarProfile profile={profile} />
-        <div className="w-full h-[4rem] bg-[#000000]/80 rounded-tr-lg"></div>
+        <div className="w-full h-[4rem] bg-[#000000]/80 rounded-tr-lg" />
       </div>
 
       <div className="flex flex-row h-full w-full">

@@ -1,9 +1,9 @@
+import React, { useState } from "react";
 import SidebarFriendlist from "@/app/components/chattapp/chattprofile/sidebarfriendlist/sidebarfriendlist";
 import SidebarProfile from "@/app/components/chattapp/chattprofile/sidebarprofile/sidebarprofile";
 import Details from "@/app/components/chattapp/frienddetails/details";
 import SidebarSearch from "@/app/components/chattapp/search/sidebarsearch";
 import MainChat from "@/app/components/mainchat/mainchat";
-import React from "react";
 
 const PrivateProfile = ({
   profile,
@@ -11,6 +11,12 @@ const PrivateProfile = ({
   selectedFriend,
   currentUser,
 }) => {
+  const [activeConversation, setActiveConversation] = useState(false);
+
+  const handleActiveConversation = (friend) => {
+    setActiveConversation(friend.username);
+  };
+
   return (
     <div className="flex">
       {/* Profile sidebar */}
@@ -20,6 +26,8 @@ const PrivateProfile = ({
         <SidebarFriendlist
           profile={profile}
           onSelectFriend={handleSelectedFriend}
+          activeConversation={activeConversation}
+          handleActiveConversation={handleActiveConversation}
         />
       </div>
 

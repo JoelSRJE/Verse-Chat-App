@@ -1,13 +1,16 @@
 import React from "react";
 
-const GroupChannels = ({ group }) => {
+const GroupChannels = ({ group, channels, activeChannel, onChannelClick }) => {
   return (
-    <div className="bg-[#000000]/30 h-full w-full">
-      <div>
-        {group.map((channel, idx) => (
+    <div className="bg-[#000000]/60 h-full w-full">
+      <div className="flex flex-col p-2 gap-1">
+        {channels.map((channel, idx) => (
           <div
             key={idx}
-            className="flex flex-row gap-2 hover:bg-[#000000]/40 p-2 cursor-pointer"
+            onClick={() => onChannelClick(channel)}
+            className={`flex flex-row gap-2 p-2 cursor-pointer hover:bg-[#535353]/90 rounded-lg ${
+              activeChannel === channel ? "bg-[#BFBCBC]/10" : ""
+            }`}
           >
             <button className="flex gap-[2px] text-gray-500 text-lg tracking-wide">
               <span className="text-greenHighlight">#</span>

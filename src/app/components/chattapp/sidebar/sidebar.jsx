@@ -13,7 +13,28 @@ const ChatSidebar = ({ handleContentChange, handleModal }) => {
       tooltip: "elysian-group",
       members: [],
       channels: [
-        { channelName: "Welcome", messages: [] },
+        {
+          channelName: "Welcome",
+          messages: [
+            {
+              avatar: "/person2.png",
+              from: "Patron Saint",
+              message: "Hej där allihopa!",
+            },
+            { avatar: "/person1.png", from: "Jacob", message: "Tjenare!" },
+            {
+              avatar: "/person2.png",
+              from: "Patron Saint",
+              message: "Vad gör ni idag då?",
+            },
+            {
+              avatar: "/person3.png",
+              from: "Nymme",
+              message:
+                "Tjena, nja inte så mycket idag. Ska kolla lite tv snart, själv?",
+            },
+          ],
+        },
         { channelName: "General", messages: [] },
         { channelName: "Announcements", messages: [] },
       ],

@@ -2,7 +2,12 @@
 import React from "react";
 import { CiTrash } from "react-icons/ci";
 
-const SidebarFriendlist = ({ profile, onSelectFriend }) => {
+const SidebarFriendlist = ({
+  profile,
+  onSelectFriend,
+  activeConversation,
+  handleActiveConversation,
+}) => {
   const removeConversation = (friend) => {
     try {
       console.log("Removing friend:", friend);
@@ -13,12 +18,17 @@ const SidebarFriendlist = ({ profile, onSelectFriend }) => {
 
   return (
     <div className="flex flex-col justify-between w-[20rem] h-full bg-[#000000]/60 text-white overflow-x-hidden">
-      <div className="flex flex-col">
+      <div className="flex flex-col gap-1 p-2">
         {profile[0].friends.map((friend, idx) => (
           <div
             key={idx}
-            onClick={() => onSelectFriend(friend)}
-            className="flex justify-between items-center m-[0.4rem] bg-[#535353]/50 rounded-lg hover:bg-[#535353]/90"
+            onClick={() => {
+              onSelectFriend(friend);
+              handleActiveConversation(friend);
+            }}
+            className={`flex justify-between items-center cursor-pointer hover:bg-[#535353]/90 rounded-lg ${
+              activeConversation === friend.username ? "bg-[#BFBCBC]/10" : ""
+            }`}
           >
             <div className="flex items-center p-2">
               <img

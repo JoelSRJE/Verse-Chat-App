@@ -1,11 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import SidebarProfile from "@/app/components/chattapp/chattprofile/sidebarprofile/sidebarprofile";
 import ChatSidebar from "../../components/chattapp/sidebar/sidebar";
-import SidebarSearch from "@/app/components/chattapp/search/sidebarsearch";
-import SidebarFriendlist from "@/app/components/chattapp/chattprofile/sidebarfriendlist/sidebarfriendlist";
-import MainChat from "@/app/components/mainchat/mainchat";
-import Details from "@/app/components/chattapp/frienddetails/details";
 import PrivateProfile from "../privateprofile/privateprofile";
 import WelcomePage from "../welcome/welcome";
 import GroupModal from "../group/groupmodal/groupmodal";
@@ -87,7 +82,6 @@ const ChattApp = () => {
     ],
   });
   const [selectedContent, setSelectedContent] = useState("welcome");
-  const [activeConversation, setActiveConversation] = useState(false);
   const [openGroupModal, setOpenGroupModal] = useState(false);
 
   const profile = [

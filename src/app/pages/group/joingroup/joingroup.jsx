@@ -30,11 +30,11 @@ const JoinGroup = () => {
         type="text"
         alt="Input for joining group"
         placeholder="Fill in the groups id"
-        className="w-full h-[3rem] text-base p-2 bg-transparent border-[1px] border-greenHighlight outline-none rounded-lg"
+        className="w-[20rem] h-[3rem] border-[1px] border-transparent text-base p-2 bg-transparent hover:border-[1px] hover:border-greenHighlight outline-none rounded-lg"
       />
       <button
         onClick={handleJoinGroup}
-        className="hover:bg-greenHighlight p-2 border-[1px] border-greenHighlight rounded-lg"
+        className="bg-greenHighlight w- p-2 border-[1px] border-greenHighlight hover:bg-[greenHighlight]/50 rounded-lg"
       >
         Join
       </button>

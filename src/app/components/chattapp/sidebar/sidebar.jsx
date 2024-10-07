@@ -4,7 +4,34 @@ import { CiChat1, CiSettings } from "react-icons/ci";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 
 const ChatSidebar = ({ handleContentChange, handleModal }) => {
-  const groups = [{ poster: "/Elysian.webp" }, { poster: "verselogo.png" }];
+  const groups = [
+    {
+      groupName: "Elysian",
+      groupDescription: "Elysian Group",
+      poster: "/Elysian.webp",
+      ref: "Elysian",
+      tooltip: "elysian-group",
+      members: [],
+      channels: [
+        { channelName: "Welcome", messages: [] },
+        { channelName: "General", messages: [] },
+        { channelName: "Announcements", messages: [] },
+      ],
+    },
+    {
+      groupName: "Verse",
+      groupDescription: "Verse Group",
+      poster: "verselogo.png",
+      ref: "Verse",
+      tooltip: "verse-group",
+      members: [],
+      channels: [
+        { channelName: "Welcome", messages: [] },
+        { channelName: "General", messages: [] },
+        { channelName: "Announcements", messages: [] },
+      ],
+    },
+  ];
 
   return (
     <div className="flex flex-col justify-between items-center h-full w-[5rem] rounded-l-lg bg-[#000000]/80 text-white overflow-x-hidden">
@@ -36,10 +63,11 @@ const ChatSidebar = ({ handleContentChange, handleModal }) => {
       {/* Groups */}
       <div className="flex h-full w-[4rem] flex-col gap-2 justify-start items-center ">
         {groups.map((group, idx) => (
-          <button key={idx}>
+          <button key={idx} onClick={() => handleContentChange("group", group)}>
             <img
               src={group.poster}
-              alt="Group poster"
+              alt={group.groupName}
+              data-tooltip-id={group.tooltip}
               className="w-[4rem] h-[3rem] rounded-lg border-[1px] border-x-gray-300 hover:border-greenHighlight"
             />
           </button>
@@ -65,22 +93,16 @@ const ChatSidebar = ({ handleContentChange, handleModal }) => {
       </div>
 
       {/* tooltips */}
-      <ReactTooltip id="home" place="bottom" content="Go to home" />
-      <ReactTooltip
-        id="message"
-        place="bottom"
-        content="Go to your private messages"
-      />
+      <ReactTooltip id="home" place="bottom" content="Home" />
+      <ReactTooltip id="message" place="bottom" content="Private messages" />
       <ReactTooltip
         id="add-group"
         place="right"
-        content="Click here to add group or create your own"
+        content="Click here to join a group or create your own"
       />
-      <ReactTooltip
-        id="settings"
-        place="right"
-        content="Click here to go to settings"
-      />
+      <ReactTooltip id="settings" place="right" content="Settings" />
+      <ReactTooltip id="elysian-group" place="right" content="Elysian group" />
+      <reactTooltip id="verse-group" place="right" content="Verse group" />
     </div>
   );
 };

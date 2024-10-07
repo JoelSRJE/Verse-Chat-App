@@ -60,7 +60,7 @@ const CreateGroup = () => {
           <input
             type="file"
             onChange={(e) => handleGroupAvatar(e)}
-            className="border-[1px] border-transparent hover:border-[1px] hover:border-greenHighlight cursor-pointer"
+            className="cursor-pointer"
           />
         </div>
 
@@ -74,9 +74,10 @@ const CreateGroup = () => {
 
             <input
               required
+              placeholder="Group Name"
               value={groupName}
               onChange={(e) => setGroupName(e.target.value)}
-              className="p-2 bg-transparent resize-none outline-none border-[1px] border-greenHighlight rounded-lg"
+              className="p-2 bg-transparent resize-none outline-none border-[1px] border-transparent hover:border-greenHighlight rounded-lg"
             />
           </div>
           <div className="flex flex-col gap-2">
@@ -90,9 +91,10 @@ const CreateGroup = () => {
             <textarea
               rows={4}
               cols={5}
+              placeholder="Group Description"
               value={groupDescription}
               onChange={(e) => setGroupDescription(e.target.value)}
-              className="p-2 bg-transparent resize-none outline-none border-[1px] border-greenHighlight rounded-lg mb-2"
+              className="p-2 bg-transparent resize-none outline-none border-[1px] border-transparent hover:border-greenHighlight rounded-lg mb-2"
             />
           </div>
         </div>
@@ -107,7 +109,7 @@ const CreateGroup = () => {
       >
         Create
       </button>
-      <div className="w-3/4 h-[1px] bg-greenHighlight mb-4" />
+      <div className="w-3/4 h-[1px] bg-gray-300 mb-4" />
     </div>
   );
 };

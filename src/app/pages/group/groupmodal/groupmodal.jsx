@@ -10,7 +10,7 @@ const GroupModal = ({ setOpenGroupModal }) => {
         className="absolute inset-0 bg-black opacity-60"
         onClick={() => setOpenGroupModal(false)}
       />
-      <div className="relative w-auto h-auto p-4 bg-[#000000]/100 text-white rounded-lg shadow-lg">
+      <div className="relative w-auto h-auto p-4 bg-[#000000]/100 text-white rounded-lg shadow-lg border-2 border-greenHighlight">
         <button
           className="p-2 h-auto w-8 hover:bg-greenHighlight rounded-lg text-center"
           onClick={() => setOpenGroupModal(false)}

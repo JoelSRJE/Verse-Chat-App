@@ -9,9 +9,11 @@ import Details from "@/app/components/chattapp/frienddetails/details";
 import PrivateProfile from "../privateprofile/privateprofile";
 import WelcomePage from "../welcome/welcome";
 import GroupModal from "../group/groupmodal/groupmodal";
+import GroupView from "../group/groupview/groupview";
 
 const ChattApp = () => {
   const [selectedFriend, setSelectedFriend] = useState(null);
+  const [selectedGroup, setSelectedGroup] = useState(null);
   const [currentUser, setCurrentUser] = useState({
     username: "Patron Saint",
     picture: "/person2.png",
@@ -122,8 +124,11 @@ const ChattApp = () => {
     setSelectedFriend(selected);
   };
 
-  const handleContentChange = (content) => {
+  const handleContentChange = (content, group = null) => {
     setSelectedContent(content);
+    if (group) {
+      setSelectedGroup(group);
+    }
   };
 
   const handleModal = () => {
@@ -142,6 +147,9 @@ const ChattApp = () => {
         </div>
 
         {selectedContent === "welcome" && <WelcomePage profile={profile} />}
+        {selectedContent === "group" && (
+          <GroupView group={selectedGroup} currentUser={currentUser} />
+        )}
         {selectedContent === "profile" && (
           <PrivateProfile
             profile={profile}

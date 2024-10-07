@@ -2,7 +2,7 @@ import React from "react";
 
 const SidebarProfile = ({ profile }) => {
   return (
-    <div className="flex w-[20rem] h-[4rem] bg-[#000000]/80 text-white ">
+    <div className="flex w-[20rem] h-[4rem] bg-[#000000]/80 text-white">
       <div className="flex justify-center items-center ml-3">
         {/* Profile picture */}
         <img

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import ChatInput from "../chattapp/chatinput/chatinput";
 
-const MainChat = ({ friend, currentUser }) => {
+const MainChat = ({ friend, profile, currentUser }) => {
   const [openPicker, setOpenPicker] = useState(false);
   const [message, setMessage] = useState("");
 
@@ -35,32 +35,49 @@ const MainChat = ({ friend, currentUser }) => {
 
   if (!friend) {
     return (
-      <div className="flex flex-col justify-between w-[45rem] h-full bg-[#000000]/80">
+      <div className="flex flex-col justify-between w-[45rem] h-full">
         {/* Top section */}
-        <div className="flex  p-4 w-[45rem] h-[4rem]"></div>
+        <div className="flex items-center p-4 w-[45rem] h-[4rem] bg-[#000000]/80" />
         {/* Middle Section */}
-        <p className="flex justify-center items-center h-full text-center pt-4 bg-[#BDBCBC]/30">
+        <p className="flex justify-center items-center h-full text-center pt-4 bg-[#BFBCBC]/10">
           Välj en vän för att visa konversationen.
         </p>
         {/* Bottom section */}
-        <div className="w-[45rem] h-[5rem]"></div>
+        <div className="w-[45rem] h-[5rem] bg-[#000000]/80">
+          <ChatInput
+            openPicker={openPicker}
+            setOpenPicker={setOpenPicker}
+            message={message}
+            setMessage={setMessage}
+            sendMessage={sendMessage}
+            handleEmoji={handleEmoji}
+          />
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="flex  flex-col justify-between w-[45rem] h-full">
+    <div className="flex flex-col justify-between w-[45rem] h-full">
       {/* The person you're talking to */}
+      {/* Top section */}
       <div className="flex items-center p-4 w-[45rem] h-[4rem] bg-[#000000]/80">
         <img
           src={friend.picture}
           className="w-[2rem] h-auto mr-2"
           alt="Friend picture"
         />
+        <div className="flex justify-center items-center w-[1rem] h-[1rem] rounded-full bg-[#000000]/100 -translate-x-[1.2rem] translate-y-1/2">
+          <div
+            className="w-[0.5rem] h-[0.5rem] rounded-full animate-pulse"
+            style={{ backgroundColor: friend.online.color }}
+          />
+        </div>
         <span className="text-white">{friend.username}</span>
       </div>
 
       {/* The conversation */}
+      {/* Middle section */}
       <div
         className="flex flex-col w-[45rem] h-[calc(100vh-1rem)] p-4 gap-2 bg-[#BFBCBC]/10 overflow-scroll overflow-x-hidden
         [&::-webkit-scrollbar]:w-2
@@ -76,7 +93,7 @@ const MainChat = ({ friend, currentUser }) => {
             <div
               key={idx}
               className={`flex ${
-                message.from === currentUser.username
+                message.from === profile[0].username
                   ? "justify-end"
                   : "justify-start"
               }`}
@@ -142,6 +159,7 @@ const MainChat = ({ friend, currentUser }) => {
       </div>
 
       {/* Chatt input */}
+      {/* Bottom section */}
       <div className="w-[45rem] h-[5rem] bg-[#000000]/80">
         <ChatInput
           openPicker={openPicker}

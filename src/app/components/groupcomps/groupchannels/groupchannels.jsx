@@ -1,6 +1,6 @@
 import React from "react";
 
-const GroupChannels = ({ group, channels, activeChannel, onChannelClick }) => {
+const GroupChannels = ({ channels, activeChannel, onChannelClick }) => {
   return (
     <div className="bg-[#000000]/60 h-full w-full">
       <div className="flex flex-col p-2 gap-1">

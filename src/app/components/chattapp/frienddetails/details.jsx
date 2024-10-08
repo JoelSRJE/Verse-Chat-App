@@ -8,8 +8,6 @@ const Details = ({ friend }) => {
     images: false,
   });
 
-  console.log("friend: ", friend);
-
   const handleToggle = (section) => {
     setToggleState((prev) => ({
       ...prev,
@@ -45,7 +43,10 @@ const Details = ({ friend }) => {
           />
           {/* Status */}
           <div className="flex justify-center items-center w-[2rem] h-[2rem] rounded-full bg-[#000000]/100 -translate-x-2/3 translate-y-1/2">
-            <div className="w-[1rem] h-[1rem] rounded-full bg-[#4FDDA9] animate-pulse" />
+            <div
+              className="w-[1rem] h-[1rem] rounded-full animate-pulse"
+              style={{ backgroundColor: friend.online.color }}
+            />
           </div>
           <span className="ml-1 text-lg font-semibold"></span>
         </div>

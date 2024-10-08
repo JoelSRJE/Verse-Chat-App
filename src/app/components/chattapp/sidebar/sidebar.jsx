@@ -1,5 +1,4 @@
-import GroupModal from "@/app/pages/group/groupmodal/groupmodal";
-import React, { useState } from "react";
+import React from "react";
 import { CiChat1, CiSettings } from "react-icons/ci";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 
@@ -11,7 +10,50 @@ const ChatSidebar = ({ handleContentChange, handleModal }) => {
       poster: "/Elysian.webp",
       ref: "Elysian",
       tooltip: "elysian-group",
-      members: [],
+      members: [
+        {
+          username: "Patron Saint",
+          picture: "/person2.png",
+          rank: "Owner",
+          online: { status: "online", color: "#4FDDA9" },
+        },
+        {
+          username: "Jacob",
+          picture: "/person1.png",
+          rank: "Admin",
+          online: { status: "offline", color: "#B8B8B8" },
+        },
+        {
+          username: "Nymme",
+          picture: "/person3.png",
+          rank: "Moderator",
+          online: { status: "busy", color: "#DD4F52" },
+        },
+        {
+          username: "Olle",
+          picture: "/person4.png",
+          rank: "Member",
+          online: { status: "away", color: "#DDC14F" },
+        },
+        {
+          username: "Augment",
+          picture: "/Elysian.webp",
+          rank: "Member",
+          online: { status: "busy", color: "#DD4F52" },
+        },
+        {
+          username: "Sokrates",
+          picture: "/Elysian.webp",
+          rank: "Member",
+          online: { status: "online", color: "#4FDDA9" },
+        },
+        {
+          username: "Homer",
+          picture: "/Elysian.webp",
+          rank: "Member",
+          online: { status: "offline", color: "#B8B8B8" },
+        },
+      ],
       channels: [
         {
           channelName: "Welcome",
@@ -45,7 +87,18 @@ const ChatSidebar = ({ handleContentChange, handleModal }) => {
       poster: "verselogo.png",
       ref: "Verse",
       tooltip: "verse-group",
-      members: [],
+      members: [
+        {
+          username: "Patron Saint",
+          picture: "/person2.png",
+          online: { status: "online", color: "#4FDDA9" },
+        },
+        {
+          username: "Jacob",
+          picture: "/person1.png",
+          online: { status: "offline", color: "#B8B8B8" },
+        },
+      ],
       channels: [
         { channelName: "Welcome", messages: [] },
         { channelName: "General", messages: [] },
@@ -123,7 +176,7 @@ const ChatSidebar = ({ handleContentChange, handleModal }) => {
       />
       <ReactTooltip id="settings" place="right" content="Settings" />
       <ReactTooltip id="elysian-group" place="right" content="Elysian group" />
-      <reactTooltip id="verse-group" place="right" content="Verse group" />
+      <ReactTooltip id="verse-group" place="right" content="Verse group" />
     </div>
   );
 };

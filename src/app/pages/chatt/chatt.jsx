@@ -19,9 +19,9 @@ const ChattApp = () => {
         username: "Jacob",
         friendsSince: "22.02.2023",
         online: { status: "offline", color: "#B8B8B8" },
-        PinnedMessages: [{ name: "Jacob", text: "Hej där!" }],
-        Files: [],
-        Images: [],
+        pinnedMessages: [{ name: "Jacob", text: "Hej där!" }],
+        files: [],
+        images: [],
         privateMessages: [
           {
             from: "Patron Saint",
@@ -88,10 +88,16 @@ const ChattApp = () => {
     {
       username: "Patron Saint",
       picture: "/person2.png",
+      online: { status: "online", color: "#4FDDA9" },
       friends: [
         {
           picture: "/person1.png",
           username: "Jacob",
+          friendsSince: "22.02.2023",
+          online: { status: "offline", color: "#B8B8B8" },
+          pinnedMessages: [{ name: "Jacob", text: "Hej där!" }],
+          files: [],
+          images: [],
           privateMessages: [
             {
               from: "Patron Saint",
@@ -103,10 +109,52 @@ const ChattApp = () => {
               picture: "person1.png",
               message: "Hej, allt bra?",
             },
+            {
+              from: "Patron Saint",
+              picture: "/person2.png",
+              message: "Jodå, lever livet!",
+            },
+            {
+              from: "Patron Saint",
+              picture: "/person2.png",
+              message: "Hur är det själv?",
+            },
           ],
         },
-        { picture: "/person3.png", username: "Nymme" },
-        { picture: "/person4.png", username: "Olle" },
+        {
+          picture: "/person3.png",
+          username: "Nymme",
+          friendsSince: "25.02.2023",
+          online: { status: "busy", color: "#DD4F52" },
+          privateMessages: [
+            {
+              from: "Patron Saint",
+              picture: "/person2.png",
+              message: "Hej där!",
+            },
+            {
+              from: "Nymme",
+              picture: "person1.png",
+              message: "Hej, allt bra?",
+            },
+            {
+              from: "Patron Saint",
+              picture: "/person2.png",
+              message: "Jodå, lever livet!",
+            },
+            {
+              from: "Patron Saint",
+              picture: "/person2.png",
+              message: "Hur är det själv?",
+            },
+          ],
+        },
+        {
+          picture: "/person4.png",
+          username: "Olle",
+          friendsSince: "27.02.2023",
+          online: { status: "away", color: "#DDC14F" },
+        },
       ],
     },
   ];

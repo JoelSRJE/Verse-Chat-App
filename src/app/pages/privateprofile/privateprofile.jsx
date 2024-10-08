@@ -12,7 +12,6 @@ const PrivateProfile = ({
   currentUser,
 }) => {
   const [activeConversation, setActiveConversation] = useState(false);
-
   const handleActiveConversation = (friend) => {
     setActiveConversation(friend.username);
   };
@@ -33,7 +32,11 @@ const PrivateProfile = ({
 
       {/* Conversation */}
       <div className="flex flex-col overflow-x-hidden">
-        <MainChat friend={selectedFriend} currentUser={currentUser} />
+        <MainChat
+          friend={selectedFriend}
+          currentUser={currentUser}
+          profile={profile}
+        />
       </div>
 
       {/* Details */}

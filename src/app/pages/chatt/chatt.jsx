@@ -78,6 +78,7 @@ const ChattApp = () => {
         username: "Olle",
         friendsSince: "27.02.2023",
         online: { status: "away", color: "#DDC14F" },
+        privateMessages: [],
       },
     ],
   });

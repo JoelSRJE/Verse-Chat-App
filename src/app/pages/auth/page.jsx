@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import LoginComponent from "./login";
-import RegisterPage from "../register/register";
+import LoginComponent from "./login/login";
+import RegisterComponent from "./register/register";
 
-const AuthLandingPage = () => {
+const AuthLandingPage = ({ setIsLoggedIn }) => {
   const [rightContent, setRightContent] = useState(true);
 
   const getChar = () => {
@@ -79,9 +79,12 @@ const AuthLandingPage = () => {
       <div className="flex flex-col flex-1 justify-center items-center w-screen h-screen bg-white rounded-l-[8px] relative">
         {/* renderContent */}
         {rightContent ? (
-          <LoginComponent handleContent={handleContent} />
+          <LoginComponent
+            handleContent={handleContent}
+            setIsLoggedIn={setIsLoggedIn}
+          />
         ) : (
-          <RegisterPage handleContent={handleContent} />
+          <RegisterComponent handleContent={handleContent} />
         )}
 
         {/* About / Contact */}

@@ -30,7 +30,10 @@ const LoginComponent = ({ handleContent, setIsLoggedIn }) => {
     <div className="flex flex-col flex-1 justify-center items-center bg-white rounded-l-[8px] relative">
       <div className="flex flex-col justify-center items-center mb-20">
         <img src="/verselogo.png" alt="Verse logo" className="w-2/5 mb-8" />
-        <span className="text-3xl font-bold mb-12">Sign In</span>
+        <span className="text-3xl font-bold mb-12">
+          {loading ? "Signing in" : "Sign in"}
+        </span>
+
         <div className="flex flex-col gap-4 mb-4 p-2">
           <div className="flex flex-col text-lg">
             <span className=" font-semibold">Email</span>

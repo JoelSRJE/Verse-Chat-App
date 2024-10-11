@@ -1,13 +1,15 @@
 "use client";
 import React, { useEffect, useState } from "react";
-
+import { CookiesProvider } from "react-cookie";
 import ChattApp from "./pages/chatt/chatt";
 import AuthLandingPage from "./pages/auth/page";
 import { getUserData } from "@/utils/userdata/getuserdata";
+import { useCookies } from "react-cookie";
 
 export default function Home() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
+  const [cookies, removeCookie] = useCookies(["accessToken", "currentUser"]);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -31,7 +33,9 @@ export default function Home() {
   return (
     <div className=" flex w-screen h-screen">
       {isLoggedIn ? (
-        <ChattApp currentUser={currentUser} />
+        <CookiesProvider>
+          <ChattApp currentUser={currentUser} />
+        </CookiesProvider>
       ) : (
         <AuthLandingPage setIsLoggedIn={setIsLoggedIn} />
       )}

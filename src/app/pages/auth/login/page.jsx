@@ -1,7 +1,10 @@
-import React from "react";
-import Image from "next/image";
+import React, { useState } from "react";
+import LoginComponent from "./login";
+import RegisterPage from "../register/register";
 
-const LoginPage = () => {
+const AuthLandingPage = () => {
+  const [rightContent, setRightContent] = useState(true);
+
   const getChar = () => {
     const appName = "Verse";
     const colors = ["#C6DEF1", "#C9E4DE", "#F2C6DE", "#F7D9C4", "#DBCDF0"];
@@ -14,6 +17,10 @@ const LoginPage = () => {
         {char}
       </span>
     ));
+  };
+
+  const handleContent = () => {
+    setRightContent(!rightContent);
   };
 
   return (
@@ -70,45 +77,12 @@ const LoginPage = () => {
 
       {/* right side */}
       <div className="flex flex-col flex-1 justify-center items-center w-screen h-screen bg-white rounded-l-[8px] relative">
-        <div className="flex flex-col justify-center items-center mb-20">
-          <img src="/verselogo.png" alt="Verse logo" className="w-2/5 mb-8" />
-          <span className="text-3xl font-bold mb-12">Sign In</span>
-          <div className="flex flex-col gap-4 mb-4">
-            <div className="flex flex-col gap-1">
-              <span className="text-lg">Email</span>
-              <input
-                type="email"
-                placeholder="Email"
-                className="h-12 px-4 rounded-lg border-[1px] border-greenHighlight"
-              />
-            </div>
-            <div className="flex flex-col gap-1">
-              <span className="text-lg">Password</span>
-              <input
-                type="password"
-                placeholder="Password"
-                className="h-12 px-4 rounded-lg border-[1px] border-greenHighlight"
-              />
-
-              <button className="text-end text-sm hover:text-greenHighlight">
-                Forgot password?
-              </button>
-            </div>
-          </div>
-          <div className="flex flex-row justify-start items-center gap-2 w-[12rem]">
-            <input type="checkbox" className="h-6 w-6 cursor-pointer" />
-            <span>Remember me</span>
-          </div>
-          <div className="flex flex-col justify-center items-center w-[12rem] gap-2 mt-2">
-            <button className="h-[2rem] w-[12rem] border-2 border-greenHighlight bg-greenHighlight rounded-lg ease-in duration-200 hover:bg-transparent">
-              Sign In
-            </button>
-            <div className="w-[8rem] h-[3px] rounded-lg bg-[#000000]/40" />
-            <button className="h-[2rem] w-[12rem] border-2 border-greenHighlight bg-greenHighlight rounded-lg ease-in duration-200 hover:bg-transparent">
-              Create Account
-            </button>
-          </div>
-        </div>
+        {/* renderContent */}
+        {rightContent ? (
+          <LoginComponent handleContent={handleContent} />
+        ) : (
+          <RegisterPage handleContent={handleContent} />
+        )}
 
         {/* About / Contact */}
         <div className="absolute bottom-4 flex items-center justify-center gap-4">
@@ -125,4 +99,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default AuthLandingPage;

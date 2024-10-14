@@ -8,7 +8,6 @@ import {
 } from "firebase/auth";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { useCookies } from "react-cookie";
 
 export const registerUser = async (avatar, username, email, password) => {
   try {
@@ -26,7 +25,8 @@ export const registerUser = async (avatar, username, email, password) => {
       const avatarSnapshot = await uploadBytes(avatarRef, avatar);
       avatarURL = await getDownloadURL(avatarSnapshot.ref);
     } else {
-      avatarURL = process.env.NEXT_PUBLIC_PLACEHOLDER_URL;
+      avatarURL =
+        "https://firebasestorage.googleapis.com/v0/b/chatt-609df.appspot.com/o/avatars%2Favatarplaceholder.png?alt=media&token=ed4f157b-e736-4ca1-89f0-020249e20d94";
     }
 
     await updateProfile(user, { displayName: username, photoURL: avatarURL });
@@ -90,6 +90,7 @@ export const loginUser = async (email, password) => {
 export const logoutUser = async () => {
   try {
     await signOut(auth);
+    console.error("User logged out.");
   } catch (error) {
     console.log("Error logging out:", error);
   }

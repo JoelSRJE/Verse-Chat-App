@@ -19,8 +19,8 @@ const GroupModal = ({ setOpenGroupModal }) => {
         </button>
         <h2 className="text-xl font-bold mb-4 text-center">Options</h2>
         <div className="flex flex-col">
-          <CreateGroup />
-          <JoinGroup />
+          <CreateGroup setOpenGroupModal={setOpenGroupModal} />
+          <JoinGroup setOpenGroupModal={setOpenGroupModal} />
         </div>
       </div>
     </div>

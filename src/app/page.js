@@ -103,16 +103,20 @@ export default function Home() {
       };
       await updateUser(currentUser.uid, updates);
       await logoutUser();
-      removeCookie("accessToken");
-      removeCookie("currentUser");
-      removeCookie("profile");
+
       setIsLoggedIn(false);
       setCurrentUser(null);
       setProfile(null);
+      removeCookie("accessToken", { path: "/" });
+      removeCookie("currentUser", { path: "/" });
+      removeCookie("profile", { path: "/" });
       console.log("User logged out.");
     } catch (error) {
       console.error("handle logout error: ", error);
+      alert("Failed to logout. Please try again!");
     }
+
+    console.log("Cookies after logout", cookies);
   };
 
   return (

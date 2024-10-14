@@ -1,6 +1,10 @@
 import React, { useState } from "react";
+import { createGroupFirebase } from "@/utils/group/creategroup/creategroupfirebase";
+import { useCookies } from "react-cookie";
 
-const CreateGroup = () => {
+const CreateGroup = ({ setOpenGroupModal }) => {
+  const [cookies] = useCookies(["currentUser"]);
+  const currentUser = cookies.currentUser;
   const [groupAvatar, setGroupAvatar] = useState(null);
   const [groupName, setGroupName] = useState("");
   const [groupDescription, setGroupDescription] = useState("");
@@ -11,28 +15,33 @@ const CreateGroup = () => {
     setGroupAvatar(e.target.files[0]);
   };
 
-  const handleCreateGroup = () => {
-    // logiken för skickande av data kommer senare.
-
+  const handleCreateGroup = async () => {
     try {
       if (groupName === "") {
         setIsSuccessfull(false);
         setMessage("Please enter a group name");
       } else {
+        await createGroupFirebase(
+          groupAvatar,
+          groupName,
+          groupDescription,
+          currentUser
+        );
         setIsSuccessfull(true);
         setMessage("Group created successfully");
-        console.log("Creating group...");
-        console.log("Group avatar:", groupAvatar);
-        console.log("Group name:", groupName);
-        console.log("Group description:", groupDescription);
 
         // Återställ alla fält
         setGroupAvatar(null);
         setGroupName("");
         setGroupDescription("");
+        setTimeout(() => {
+          setOpenGroupModal(false);
+        }, 2000);
       }
     } catch (error) {
-      console.log("Error:", error);
+      console.log("Create group error:", error);
+      setIsSuccessfull(false);
+      setMessage("An error occurred while creating the group");
     }
   };
 

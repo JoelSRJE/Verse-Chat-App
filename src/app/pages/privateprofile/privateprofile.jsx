@@ -20,10 +20,10 @@ const PrivateProfile = ({
     <div className="flex">
       {/* Profile sidebar */}
       <div className="flex flex-col overflow-x-hidden">
-        <SidebarProfile profile={profile} />
+        <SidebarProfile currentUser={currentUser} />
         <SidebarSearch />
         <SidebarFriendlist
-          profile={profile}
+          currentUser={currentUser}
           onSelectFriend={handleSelectedFriend}
           activeConversation={activeConversation}
           handleActiveConversation={handleActiveConversation}

@@ -1,26 +1,20 @@
 import React from "react";
 import SidebarProfile from "@/app/components/chattapp/chattprofile/sidebarprofile/sidebarprofile";
 import { CiLogout } from "react-icons/ci";
-import { logoutUser } from "@/utils/auth/authservices";
-import { useCookies } from "react-cookie";
 
-const WelcomePage = ({ currentUser, handleLogout }) => {
-  const [cookies, removeCookie] = useCookies(["accessToken", "currentUser"]);
-
+const WelcomePage = ({ profile, handleLogout }) => {
   const handleLogoutClick = async () => {
     try {
-      console.log("Trying to sign out & remove cookies...");
       handleLogout();
-      console.log("Sign out successfull");
     } catch (error) {
-      console.log("Sign out error: ", error);
+      console.error("Sign out error: ", error);
     }
   };
 
   return (
     <div className="flex flex-col justify-between w-[85rem] h-full">
       <div className="flex flex-row">
-        <SidebarProfile currentUser={currentUser} />
+        <SidebarProfile profile={profile} />
         <div className="flex w-full justify-end h-[4rem] bg-[#000000]/80 rounded-tr-lg">
           {/* logout */}
           <button

@@ -6,8 +6,9 @@ import {
   updateProfile,
   signOut,
 } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { useCookies } from "react-cookie";
 
 export const registerUser = async (avatar, username, email, password) => {
   try {
@@ -25,8 +26,7 @@ export const registerUser = async (avatar, username, email, password) => {
       const avatarSnapshot = await uploadBytes(avatarRef, avatar);
       avatarURL = await getDownloadURL(avatarSnapshot.ref);
     } else {
-      avatarURL =
-        "https://firebasestorage.googleapis.com/v0/b/chatt-609df.appspot.com/o/avatars%2Favatarplaceholder.png?alt=media&token=ed4f157b-e736-4ca1-89f0-020249e20d94";
+      avatarURL = process.env.NEXT_PUBLIC_PLACEHOLDER_URL;
     }
 
     await updateProfile(user, { displayName: username, photoURL: avatarURL });
@@ -67,7 +67,14 @@ export const loginUser = async (email, password) => {
     );
     const user = userCredentials.user;
 
-    return user;
+    const userDoc = await getDoc(doc(db, "users", user.uid));
+    if (userDoc.exists()) {
+      const userData = userDoc.data();
+
+      return { authData: user, userData: userData };
+    } else {
+      throw new Error("User document not found in Firestore");
+    }
   } catch (error) {
     console.error("Error logging in:", error);
     if (error.code === "auth/user-not-found") {

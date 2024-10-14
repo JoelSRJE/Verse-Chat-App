@@ -3,7 +3,7 @@ import React from "react";
 import { CiTrash } from "react-icons/ci";
 
 const SidebarFriendlist = ({
-  profile,
+  currentUser,
   onSelectFriend,
   activeConversation,
   handleActiveConversation,
@@ -19,7 +19,7 @@ const SidebarFriendlist = ({
   return (
     <div className="flex flex-col justify-between w-[20rem] h-full bg-[#000000]/60 text-white overflow-x-hidden">
       <div className="flex flex-col gap-1 p-2">
-        {profile[0].friends.map((friend, idx) => (
+        {currentUser[0].friends.map((friend, idx) => (
           <div
             key={idx}
             onClick={() => {

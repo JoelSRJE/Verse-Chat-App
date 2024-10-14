@@ -39,7 +39,7 @@ const RegisterComponent = ({ handleContent }) => {
       setTimeout(() => {
         setMessage(null);
         handleContent();
-      }, 5000);
+      }, 3000);
     } catch (error) {
       setIsSuccessfull(false);
       setMessage(error.message);

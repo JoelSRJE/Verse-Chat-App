@@ -1,7 +1,6 @@
 import React from "react";
 
 const SidebarProfile = ({ profile }) => {
-  console.log("profile from sidebarprofile:", profile);
   return (
     <div className="flex w-[20rem] h-[4rem] bg-[#000000]/80 text-white">
       <div className="flex justify-center items-center ml-3">

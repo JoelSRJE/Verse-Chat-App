@@ -1,6 +1,10 @@
 import React from "react";
 
 const GroupChannels = ({ channels, activeChannel, onChannelClick }) => {
+  if (!channels || channels.length === 0) {
+    return <div>No channels available</div>;
+  }
+
   return (
     <div className="bg-[#000000]/60 h-full w-full">
       <div className="flex flex-col p-2 gap-1">

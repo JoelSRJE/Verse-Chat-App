@@ -1,6 +1,6 @@
 import React from "react";
 
-const GroupProfile = ({ currentUser }) => {
+const GroupProfile = ({ profile }) => {
   const maxLength = 10;
 
   return (
@@ -8,7 +8,7 @@ const GroupProfile = ({ currentUser }) => {
       <div className="flex justify-center items-center ml-3">
         {/* Profile picture */}
         <img
-          src={currentUser.picture}
+          src={profile.avatar}
           alt="Profile picture"
           className="w-[2.5rem] h-auto"
         />
@@ -16,18 +16,16 @@ const GroupProfile = ({ currentUser }) => {
         <div className="flex justify-center items-center w-[1rem] h-[1rem] rounded-full bg-[#000000]/100 -translate-x-2/3 translate-y-1/2">
           <div
             className="w-[0.5rem] h-[0.5rem] rounded-full animate-pulse"
-            style={{ backgroundColor: currentUser.online.color }}
+            style={{ backgroundColor: profile.online.color }}
           />
         </div>
 
         {/* username & status */}
         <div className="flex flex-col">
           <span className="ml-1 text-lg font-semibold">
-            {currentUser.username.slice(0, maxLength) + "..."}
+            {profile.username.slice(0, maxLength) + "..."}
           </span>
-          <span className="ml-1 text-xs italic">
-            {currentUser.online.status}
-          </span>
+          <span className="ml-1 text-xs italic">{profile.online.status}</span>
         </div>
       </div>
     </div>

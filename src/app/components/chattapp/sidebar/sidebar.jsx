@@ -2,111 +2,7 @@ import React from "react";
 import { CiChat1, CiSettings } from "react-icons/ci";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 
-const ChatSidebar = ({ handleContentChange, handleModal }) => {
-  const groups = [
-    {
-      groupName: "Elysian",
-      groupDescription: "Elysian Group",
-      poster: "/Elysian.webp",
-      ref: "Elysian",
-      tooltip: "elysian-group",
-      members: [
-        {
-          username: "Patron Saint",
-          picture: "/person2.png",
-          rank: "Owner",
-          online: { status: "online", color: "#4FDDA9" },
-        },
-        {
-          username: "Jacob",
-          picture: "/person1.png",
-          rank: "Admin",
-          online: { status: "offline", color: "#B8B8B8" },
-        },
-        {
-          username: "Nymme",
-          picture: "/person3.png",
-          rank: "Moderator",
-          online: { status: "busy", color: "#DD4F52" },
-        },
-        {
-          username: "Olle",
-          picture: "/person4.png",
-          rank: "Member",
-          online: { status: "away", color: "#DDC14F" },
-        },
-        {
-          username: "Augment",
-          picture: "/Elysian.webp",
-          rank: "Member",
-          online: { status: "busy", color: "#DD4F52" },
-        },
-        {
-          username: "Sokrates",
-          picture: "/Elysian.webp",
-          rank: "Member",
-          online: { status: "online", color: "#4FDDA9" },
-        },
-        {
-          username: "Homer",
-          picture: "/Elysian.webp",
-          rank: "Member",
-          online: { status: "offline", color: "#B8B8B8" },
-        },
-      ],
-      channels: [
-        {
-          channelName: "Welcome",
-          messages: [
-            {
-              avatar: "/person2.png",
-              from: "Patron Saint",
-              message: "Hej där allihopa!",
-            },
-            { avatar: "/person1.png", from: "Jacob", message: "Tjenare!" },
-            {
-              avatar: "/person2.png",
-              from: "Patron Saint",
-              message: "Vad gör ni idag då?",
-            },
-            {
-              avatar: "/person3.png",
-              from: "Nymme",
-              message:
-                "Tjena, nja inte så mycket idag. Ska kolla lite tv snart, själv?",
-            },
-          ],
-        },
-        { channelName: "General", messages: [] },
-        { channelName: "Announcements", messages: [] },
-      ],
-    },
-    {
-      groupName: "Verse",
-      groupDescription: "Verse Group",
-      poster: "verselogo.png",
-      ref: "Verse",
-      tooltip: "verse-group",
-      members: [
-        {
-          username: "Patron Saint",
-          picture: "/person2.png",
-          online: { status: "online", color: "#4FDDA9" },
-        },
-        {
-          username: "Jacob",
-          picture: "/person1.png",
-          online: { status: "offline", color: "#B8B8B8" },
-        },
-      ],
-      channels: [
-        { channelName: "Welcome", messages: [] },
-        { channelName: "General", messages: [] },
-        { channelName: "Announcements", messages: [] },
-      ],
-    },
-  ];
-
+const ChatSidebar = ({ profile, handleContentChange, handleModal }) => {
   return (
     <div className="flex flex-col justify-between items-center h-full w-[5rem] rounded-l-lg bg-[#000000]/80 text-white overflow-x-hidden">
       {/* Top section */}
@@ -135,8 +31,8 @@ const ChatSidebar = ({ handleContentChange, handleModal }) => {
 
       {/* Middle section */}
       {/* Groups */}
-      <div className="flex h-full w-[4rem] flex-col gap-2 justify-start items-center ">
-        {groups.map((group, idx) => (
+      <div className="flex h-full w-[4rem] flex-col gap-2 justify-start items-center">
+        {profile.groups.map((group, idx) => (
           <button key={idx} onClick={() => handleContentChange("group", group)}>
             <img
               src={group.poster}

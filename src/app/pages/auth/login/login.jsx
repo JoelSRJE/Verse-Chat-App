@@ -1,13 +1,12 @@
 import React, { useState } from "react";
-import { loginUser } from "@/utils/auth/authservices";
 
-const LoginComponent = ({ handleContent, setIsLoggedIn }) => {
+const LoginComponent = ({ handleContent, handleLogin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
-  const handleLogin = async () => {
+  const handleLoginClick = async () => {
     if (!email || !password) {
       setMessage("All fields must be filled in");
       return;
@@ -17,13 +16,14 @@ const LoginComponent = ({ handleContent, setIsLoggedIn }) => {
     setMessage("");
 
     try {
-      await loginUser(email, password);
+      handleLogin(email, password);
       setLoading(false);
-      setIsLoggedIn(true);
       setTimeout(() => {
         setMessage("Login successful");
       }, 2000);
-    } catch (error) {}
+    } catch (error) {
+      console.error("LoginClick error: ", error);
+    }
   };
 
   return (
@@ -31,9 +31,9 @@ const LoginComponent = ({ handleContent, setIsLoggedIn }) => {
       <div className="flex flex-col justify-center items-center mb-20">
         <img src="/verselogo.png" alt="Verse logo" className="w-2/5 mb-8" />
         <span className="text-3xl font-bold mb-12">
-          {loading ? "Signing in" : "Sign in"}
+          {loading ? "Attempting to sign in" : "Sign in"}
         </span>
-
+        <span>{message}</span>
         <div className="flex flex-col gap-4 mb-4 p-2">
           <div className="flex flex-col text-lg">
             <span className=" font-semibold">Email</span>
@@ -67,7 +67,7 @@ const LoginComponent = ({ handleContent, setIsLoggedIn }) => {
         <div className="flex flex-col justify-center items-center w-[15rem] gap-2 mt-2">
           <button
             className="h-[2.5rem] w-[14rem] text-lg font-semibold text-white border-2 border-greenHighlight bg-greenHighlight rounded-lg ease-in duration-200 hover:bg-transparent hover:text-greenHighlight"
-            onClick={handleLogin}
+            onClick={handleLoginClick}
             disabled={loading}
           >
             {loading ? "Signing in..." : "Sign in"}

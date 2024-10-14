@@ -1,12 +1,35 @@
-import SidebarProfile from "@/app/components/chattapp/chattprofile/sidebarprofile/sidebarprofile";
 import React from "react";
+import SidebarProfile from "@/app/components/chattapp/chattprofile/sidebarprofile/sidebarprofile";
+import { CiLogout } from "react-icons/ci";
+import { logoutUser } from "@/utils/auth/authservices";
+import { useCookies } from "react-cookie";
 
-const WelcomePage = ({ profile }) => {
+const WelcomePage = ({ currentUser, handleLogout }) => {
+  const [cookies, removeCookie] = useCookies(["accessToken", "currentUser"]);
+
+  const handleLogoutClick = async () => {
+    try {
+      console.log("Trying to sign out & remove cookies...");
+      handleLogout();
+      console.log("Sign out successfull");
+    } catch (error) {
+      console.log("Sign out error: ", error);
+    }
+  };
+
   return (
     <div className="flex flex-col justify-between w-[85rem] h-full">
       <div className="flex flex-row">
-        <SidebarProfile profile={profile} />
-        <div className="w-full h-[4rem] bg-[#000000]/80 rounded-tr-lg" />
+        <SidebarProfile currentUser={currentUser} />
+        <div className="flex w-full justify-end h-[4rem] bg-[#000000]/80 rounded-tr-lg">
+          {/* logout */}
+          <button
+            className="flex justify-center items-center text-white w-[3rem] rounded-tr-lg hover:scale-110"
+            onClick={handleLogoutClick}
+          >
+            <CiLogout className="scale-150" />
+          </button>
+        </div>
       </div>
 
       <div className="flex flex-row h-full w-full">

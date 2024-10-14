@@ -6,10 +6,10 @@ import WelcomePage from "../welcome/welcome";
 import GroupModal from "../group/groupmodal/groupmodal";
 import GroupView from "../group/groupview/groupview";
 
-const ChattApp = () => {
+const ChattApp = ({ currentUser, handleLogout }) => {
   const [selectedFriend, setSelectedFriend] = useState(null);
   const [selectedGroup, setSelectedGroup] = useState(null);
-  const [currentUser, setCurrentUser] = useState({
+  /*const [currentUser, setCurrentUser] = useState({
     username: "Patron Saint",
     picture: "/person2.png",
     online: { status: "online", color: "#4FDDA9" },
@@ -81,11 +81,11 @@ const ChattApp = () => {
         privateMessages: [],
       },
     ],
-  });
+  });*/
   const [selectedContent, setSelectedContent] = useState("welcome");
   const [openGroupModal, setOpenGroupModal] = useState(false);
 
-  const profile = [
+  /* const profile = [
     {
       username: "Patron Saint",
       picture: "/person2.png",
@@ -159,6 +159,7 @@ const ChattApp = () => {
       ],
     },
   ];
+*/
 
   const handleSelectedFriend = (friend) => {
     const selected = currentUser.friends.find(
@@ -189,13 +190,14 @@ const ChattApp = () => {
           />
         </div>
 
-        {selectedContent === "welcome" && <WelcomePage profile={profile} />}
+        {selectedContent === "welcome" && (
+          <WelcomePage currentUser={currentUser} handleLogout={handleLogout} />
+        )}
         {selectedContent === "group" && (
           <GroupView group={selectedGroup} currentUser={currentUser} />
         )}
         {selectedContent === "profile" && (
           <PrivateProfile
-            profile={profile}
             handleSelectedFriend={handleSelectedFriend}
             selectedFriend={selectedFriend}
             currentUser={currentUser}

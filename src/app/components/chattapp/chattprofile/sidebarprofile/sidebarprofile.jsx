@@ -1,12 +1,13 @@
 import React from "react";
 
-const SidebarProfile = ({ profile }) => {
+const SidebarProfile = ({ currentUser }) => {
+  console.log("SidebarProfile currentUser:", currentUser);
   return (
     <div className="flex w-[20rem] h-[4rem] bg-[#000000]/80 text-white">
       <div className="flex justify-center items-center ml-3">
         {/* Profile picture */}
         <img
-          src={profile[0].picture}
+          src={currentUser.photoURL}
           alt="Profile picture"
           className="w-[3rem] h-auto"
         />
@@ -15,7 +16,7 @@ const SidebarProfile = ({ profile }) => {
           <div className="w-[0.5rem] h-[0.5rem] rounded-full bg-[#4FDDA9] animate-pulse" />
         </div>
         <span className="ml-1 text-lg font-semibold">
-          {profile[0].username}
+          {currentUser.displayName}
         </span>
       </div>
     </div>

@@ -2,19 +2,20 @@ import React, { useState } from "react";
 import { registerUser } from "@/utils/auth/authservices";
 
 const RegisterComponent = ({ handleContent }) => {
+  const [loading, setLoading] = useState(false);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [avatarFile, setAvatarFile] = useState(null);
+  const [avatar, setAvatar] = useState(null);
   const [message, setMessage] = useState(null);
   const [isSuccessfull, setIsSuccessfull] = useState(false);
 
   const handleAvatar = (e) => {
-    setAvatarFile(e.target.files[0]);
+    setAvatar(e.target.files[0]);
   };
 
   const clearFields = () => {
-    setAvatarFile(null);
+    setAvatar(null);
     setUsername("");
     setEmail("");
     setPassword("");
@@ -28,26 +29,22 @@ const RegisterComponent = ({ handleContent }) => {
       return;
     }
 
+    setLoading(true);
     try {
-      const defaultAvatar = "/avatarplaceholder.png";
-      const finalAvatar = avatarFile ? avatarFile : defaultAvatar;
+      const regUser = await registerUser(avatar, username, email, password);
 
-      const regUser = await registerUser(
-        finalAvatar,
-        username,
-        email,
-        password
-      );
       setIsSuccessfull(true);
       setMessage("Your account has been successfully created!");
       clearFields();
       setTimeout(() => {
         setMessage(null);
+        handleContent();
       }, 5000);
     } catch (error) {
       setIsSuccessfull(false);
       setMessage(error.message);
     }
+    setLoading(false);
   };
 
   return (
@@ -68,10 +65,10 @@ const RegisterComponent = ({ handleContent }) => {
         <div className="flex flex-col gap-4 mb-4 p-2">
           <div className="flex flex-col justify-center items-center gap-4">
             <div className="flex justify-center items-center w-[8.5rem] h-[8.5rem] border-2 border-dashed border-greenHighlight rounded-lg">
-              {avatarFile ? (
+              {avatar ? (
                 <div>
                   <img
-                    src={URL.createObjectURL(avatarFile)}
+                    src={URL.createObjectURL(avatar)}
                     alt="User avatar preview"
                     className="w-[8.5rem] h-[8.3rem] rounded-lg"
                   />

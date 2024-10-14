@@ -24,13 +24,12 @@ export const registerUser = async (avatar, username, email, password) => {
       const avatarRef = ref(storage, `avatars/${user.uid}`);
       const avatarSnapshot = await uploadBytes(avatarRef, avatar);
       avatarURL = await getDownloadURL(avatarSnapshot.ref);
+    } else {
+      avatarURL =
+        "https://firebasestorage.googleapis.com/v0/b/chatt-609df.appspot.com/o/avatars%2Favatarplaceholder.png?alt=media&token=ed4f157b-e736-4ca1-89f0-020249e20d94";
     }
 
-    if (avatarURL) {
-      await updateProfile(user, { displayName: username, photoURL: avatarURL });
-    } else {
-      await updateProfile(user, { displayName: username });
-    }
+    await updateProfile(user, { displayName: username, photoURL: avatarURL });
 
     await setDoc(doc(db, "users", user.uid), {
       avatar: avatarURL,
@@ -89,6 +88,6 @@ export const logoutUser = async () => {
   }
 };
 
-export const authStateListener = (calback) => {
-  return onAuthStateChanged(auth, calback);
+export const authStateListener = (callback) => {
+  return onAuthStateChanged(auth, callback);
 };

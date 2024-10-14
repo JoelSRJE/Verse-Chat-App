@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import LoginComponent from "./login/login";
 import RegisterComponent from "./register/register";
 
-const AuthLandingPage = ({ setIsLoggedIn }) => {
+const AuthLandingPage = ({ handleLogin, setIsLoggedIn }) => {
   const [rightContent, setRightContent] = useState(true);
 
   const getChar = () => {
@@ -81,7 +81,7 @@ const AuthLandingPage = ({ setIsLoggedIn }) => {
         {rightContent ? (
           <LoginComponent
             handleContent={handleContent}
-            setIsLoggedIn={setIsLoggedIn}
+            handleLogin={handleLogin}
           />
         ) : (
           <RegisterComponent handleContent={handleContent} />

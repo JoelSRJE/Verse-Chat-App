@@ -1,15 +1,22 @@
 import { db } from "@/utils/firebaseConfig";
-import { collection, getDocs } from "firebase/firestore";
+import {
+  getDocs,
+  collection,
+  query,
+  where,
+  documentId,
+} from "firebase/firestore";
 
 export const fetchGroups = async (profile) => {
-  const groupIds = profile.groups.flatMap((group) => group.groups || []);
+  const groupIds = profile.groups.map((group) => group.groupId) || [];
 
   if (groupIds.length === 0) {
     return [];
   }
 
   const groupRef = collection(db, "groups");
-  const groupSnapshot = await getDocs(groupRef);
+  const groupQuery = query(groupRef, where(documentId(), "in", groupIds));
+  const groupSnapshot = await getDocs(groupQuery);
 
   const groupData = [];
 
@@ -20,10 +27,7 @@ export const fetchGroups = async (profile) => {
   groupSnapshot.forEach((doc) => {
     const group = doc.data();
     const groupId = doc.id;
-
-    if (groupIds.includes(groupId)) {
-      groupData.push({ id: groupId, ...group });
-    }
+    groupData.push({ id: groupId, ...group });
   });
 
   return groupData;

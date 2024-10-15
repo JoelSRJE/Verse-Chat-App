@@ -6,8 +6,6 @@ import GroupProfile from "@/app/components/groupcomps/groupprofile/groupprofile"
 import GroupDetails from "@/app/components/groupcomps/groupdetails/groupdetails";
 
 const GroupView = ({ group, profile }) => {
-  console.log("Selected group: ", group);
-  console.log("Profile: ", profile);
   if (!group) {
     return <div>Group not found</div>;
   }

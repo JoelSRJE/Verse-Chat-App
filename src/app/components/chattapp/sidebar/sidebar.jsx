@@ -2,7 +2,7 @@ import React from "react";
 import { CiChat1, CiSettings } from "react-icons/ci";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 
-const ChatSidebar = ({ profile, handleContentChange, handleModal }) => {
+const ChatSidebar = ({ handleContentChange, handleModal, groups }) => {
   return (
     <div className="flex flex-col justify-between items-center h-full w-[5rem] rounded-l-lg bg-[#000000]/80 text-white overflow-x-hidden">
       {/* Top section */}
@@ -32,8 +32,11 @@ const ChatSidebar = ({ profile, handleContentChange, handleModal }) => {
       {/* Middle section */}
       {/* Groups */}
       <div className="flex h-full w-[4rem] flex-col gap-2 justify-start items-center">
-        {profile.groups.map((group, idx) => (
-          <button key={idx} onClick={() => handleContentChange("group", group)}>
+        {groups.map((group) => (
+          <button
+            key={group.id}
+            onClick={() => handleContentChange("group", group)}
+          >
             <img
               src={group.poster}
               alt={group.groupName}

@@ -26,7 +26,10 @@ export const tryToJoin = async (uid, groupId) => {
         await updateDoc(groupRef, { members: updatedMembers });
 
         //Uppdatera användarens grupp array.
-        await updateUserGroup(uid, groupId);
+        await updateUserGroup(uid, {
+          groupId: groupId,
+          role: "Member",
+        });
 
         return { success: true, message: "Group joined successfully" };
       } else {

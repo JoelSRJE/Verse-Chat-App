@@ -37,6 +37,7 @@ export const registerUser = async (avatar, username, email, password) => {
       email: email,
       online: { status: "Offline", color: "#B8B8B8" },
       friends: [],
+      blocked: [],
       groups: [],
       registeredAt: new Date().getTime(),
       lastSeen: new Date().getTime(),

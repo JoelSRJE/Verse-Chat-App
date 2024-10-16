@@ -5,7 +5,8 @@ import ChattApp from "./pages/chatt/chatt";
 import AuthLandingPage from "./pages/auth/page";
 import { loginUser, logoutUser } from "@/utils/auth/authservices";
 import { updateUser } from "@/utils/user/updateuser/updateuser";
-import { useUserProfile } from "@/utils/user/userlistener/userlistener";
+import { useUserProfile } from "@/app/hooks/userlistener/userlistener";
+import { useGroup } from "./hooks/grouplistener/grouplistener";
 
 export default function Home() {
   const [cookies, setCookie, removeCookie] = useCookies([
@@ -32,9 +33,8 @@ export default function Home() {
         }
       } else if (typeof cookies.currentUser === "object") {
         setCurrentUser(cookies.currentUser);
-      }
+      } // Kontrollera och ställ in profil
 
-      // Kontrollera och ställ in profil
       if (cookies.profile) {
         if (typeof cookies.profile === "string") {
           try {
@@ -65,6 +65,8 @@ export default function Home() {
       setProfile(userProfile);
     }
   }, [userProfile]);
+
+  const groupData = useGroup(profile);
 
   const handleLogin = async (email, password) => {
     try {
@@ -97,11 +99,12 @@ export default function Home() {
 
   const handleLogout = async () => {
     try {
-      const updates = {
+      const userUpdate = {
         lastSeen: new Date().getTime(),
         online: { status: "Offline", color: "#B8B8B8" },
       };
-      await updateUser(currentUser.uid, updates);
+      await updateUser(currentUser.uid, userUpdate);
+
       await logoutUser();
 
       setIsLoggedIn(false);
@@ -119,11 +122,23 @@ export default function Home() {
     console.log("Cookies after logout", cookies);
   };
 
+  const toggleStatus = () => {};
+
   return (
     <div className=" flex w-screen h-screen">
       <CookiesProvider>
         {isLoggedIn && currentUser ? (
-          <ChattApp profile={profile} handleLogout={handleLogout} />
+          <div className="flex flex-col">
+            <ChattApp
+              profile={profile}
+              handleLogout={handleLogout}
+              currentUser={currentUser}
+              groupData={groupData}
+            />
+            <button className="p-4" onClick={toggleStatus}>
+              toggle group status
+            </button>
+          </div>
         ) : (
           <AuthLandingPage handleLogin={handleLogin} />
         )}

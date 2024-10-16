@@ -5,7 +5,6 @@ import { useCookies } from "react-cookie";
 const JoinGroup = () => {
   const [cookies] = useCookies(["currentUser"]);
   const currentUser = cookies.currentUser;
-  console.log("CurrentUser from JoinGroup: ", currentUser.uid);
   const [groupId, setGroupId] = useState("");
   const [message, setMessage] = useState("");
   const [isSuccessfull, setIsSuccessfull] = useState(false);

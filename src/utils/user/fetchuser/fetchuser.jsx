@@ -8,6 +8,7 @@ export const fetchUsersById = async (userId) => {
   if (userSnapshot.exists()) {
     const { avatar, username, online } = userSnapshot.data();
     return {
+      userId,
       avatar,
       username,
       online,

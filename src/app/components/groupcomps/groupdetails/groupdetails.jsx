@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { CiCircleChevDown, CiCircleChevUp } from "react-icons/ci";
+import { subscribeToUsersById } from "@/utils/allusers/subscribetousersbyid";
+import { CiLogout } from "react-icons/ci";
 
-const GroupDetails = ({ group }) => {
+const GroupDetails = ({ group, handleLogout }) => {
   const [toggleState, setToggleState] = useState({
     owner: true,
     admin: true,
@@ -9,21 +11,59 @@ const GroupDetails = ({ group }) => {
     member: true,
     offline: false,
   });
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [members, setMembers] = useState(group.members || []);
 
-  console.log("Group in groupdetails: ", group);
-  // Rank ordning
+  useEffect(() => {
+    setMembers(group.members || []);
+    const unsubscribeFunctions = [];
+
+    const updateMemberStatus = (userId) => {
+      const unsubscribe = subscribeToUsersById(userId, (updatedUser) => {
+        setMembers((prevMembers) => {
+          const updatedMembers = prevMembers.map((member) => {
+            if (member.userId === userId) {
+              return {
+                ...member,
+                ...updatedUser,
+                lastActive: Date.now(),
+              };
+            }
+            return member;
+          });
+          return updatedMembers;
+        });
+      });
+      unsubscribeFunctions.push(unsubscribe);
+    };
+
+    members.forEach((member) => {
+      updateMemberStatus(member.userId);
+    });
+
+    setLoading(false);
+
+    return () => {
+      unsubscribeFunctions.forEach((unsubscribe) => unsubscribe());
+    };
+  }, [group.members]);
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>{error}</div>;
+
   const rankOrder = ["Owner", "Admin", "Moderator", "Member"];
 
-  const onlineMembers = group.members.filter((member) => {
+  const onlineMembers = members.filter((member) => {
     return (
-      member.user.online.status === "Online" ||
-      member.user.online.status === "Busy" ||
-      member.user.online.status === "Away"
+      member.online?.status === "Online" ||
+      member.online?.status === "Busy" ||
+      member.online?.status === "Away"
     );
   });
 
-  const offlineMembers = group.members.filter((member) => {
-    return member.user.online.status === "Offline";
+  const offlineMembers = members.filter((member) => {
+    return member.online?.status === "Offline";
   });
 
   const handleToggle = (section) => {
@@ -36,10 +76,18 @@ const GroupDetails = ({ group }) => {
   return (
     <div className="flex flex-col justify-between w-[20rem] h-full text-white rounded-r-lg overflow-x-hidden">
       {/* Top section */}
-      <div className="flex justify-center items-center w-full h-[4rem] bg-[#000000]/80 text-xl rounded-tr-lg">
-        Members
+      <div className="flex justify-between items-center w-full h-[4em] bg-[#000000]/80 text-xl rounded-tr-lg">
+        <span className="ml-12">Members</span>
+        <div className="flex h-[4rem]  rounded-tr-lg">
+          {/* logout */}
+          <button
+            className="flex justify-center items-center text-white w-[3rem] rounded-tr-lg hover:scale-110"
+            onClick={handleLogout}
+          >
+            <CiLogout className="scale-125" />
+          </button>
+        </div>
       </div>
-
       {/* Members Section */}
       <div className="flex flex-col justify-between h-full text-xl gap-2 p-2 bg-[#000000]/60">
         {/* Online members */}
@@ -66,7 +114,6 @@ const GroupDetails = ({ group }) => {
                       )}
                     </button>
                   </div>
-
                   {toggleState[rank.toLowerCase()] &&
                     membersInRank.map((member, idx) => (
                       <div
@@ -74,19 +121,19 @@ const GroupDetails = ({ group }) => {
                         className="flex items-center p-1 hover:bg-[#535353]/90 cursor-pointer"
                       >
                         <img
-                          src={member.user.avatar}
+                          src={member.avatar}
                           className="w-[2rem] h-auto ml-2"
                           alt="Profile picture"
                         />
                         <div className="flex justify-center items-center w-[1rem] h-[1rem] rounded-full bg-[#000000]/100 ml-2 -translate-x-[1.2rem] translate-y-1/2">
                           <div
-                            className="w-[0.5rem] h-[0.5rem] rounded-full"
+                            className="w-[0.5rem] h-[0.5rem] rounded-full animate-pulse"
                             style={{
-                              backgroundColor: member.user.online.color,
+                              backgroundColor: member.online.color,
                             }}
                           />
                         </div>
-                        <span>{member.user.username}</span>{" "}
+                        <span>{member.username}</span>
                       </div>
                     ))}
                 </div>
@@ -95,7 +142,6 @@ const GroupDetails = ({ group }) => {
             return null;
           })}
         </div>
-
         {/* Offline members */}
         <div className="p-2">
           {offlineMembers.length > 0 && (
@@ -116,7 +162,6 @@ const GroupDetails = ({ group }) => {
                   )}
                 </button>
               </div>
-
               {toggleState.offline &&
                 offlineMembers.map((member, idx) => (
                   <div
@@ -124,24 +169,23 @@ const GroupDetails = ({ group }) => {
                     className="flex items-center p-1 hover:bg-[#535353]/90 cursor-pointer"
                   >
                     <img
-                      src={member.user.avatar}
+                      src={member.avatar}
                       className="w-[2rem] h-auto ml-2"
                       alt="Profile picture"
                     />
                     <div className="flex justify-center items-center w-[1rem] h-[1rem] rounded-full bg-[#000000]/100 ml-2 -translate-x-[1.2rem] translate-y-1/2">
                       <div
                         className="w-[0.5rem] h-[0.5rem] rounded-full"
-                        style={{ backgroundColor: member.user.online.color }}
+                        style={{ backgroundColor: member.online.color }}
                       />
                     </div>
-                    <span>{member.user.username}</span>{" "}
+                    <span>{member.username}</span>
                   </div>
                 ))}
             </div>
           )}
         </div>
       </div>
-
       {/* Bottom Section */}
       <div className="w-[20rem] h-[4rem] bg-[#000000]/80" />
     </div>

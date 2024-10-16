@@ -3,14 +3,6 @@ import SidebarProfile from "@/app/components/chattapp/chattprofile/sidebarprofil
 import { CiLogout } from "react-icons/ci";
 
 const WelcomePage = ({ profile, handleLogout }) => {
-  const handleLogoutClick = async () => {
-    try {
-      handleLogout();
-    } catch (error) {
-      console.error("Sign out error: ", error);
-    }
-  };
-
   return (
     <div className="flex flex-col justify-between w-[85rem] h-full">
       <div className="flex flex-row">
@@ -19,7 +11,7 @@ const WelcomePage = ({ profile, handleLogout }) => {
           {/* logout */}
           <button
             className="flex justify-center items-center text-white w-[3rem] rounded-tr-lg hover:scale-110"
-            onClick={handleLogoutClick}
+            onClick={handleLogout}
           >
             <CiLogout className="scale-150" />
           </button>

@@ -6,18 +6,19 @@ export const useUserProfile = (uid) => {
   const [profile, setProfile] = useState(null);
 
   useEffect(() => {
-    if (uid) {
-      const userDocRef = doc(db, "users", uid);
-      const unsubscribe = onSnapshot(userDocRef, (doc) => {
-        if (doc.exists()) {
-          setProfile(doc.data());
-        } else {
-          setProfile(null);
-        }
-      });
+    if (!uid) return;
 
-      return () => unsubscribe();
-    }
+    const userDocRef = doc(db, "users", uid);
+    const unsubscribe = onSnapshot(userDocRef, (doc) => {
+      console.log("User document updated: ", doc.data());
+      if (doc.exists()) {
+        setProfile(doc.data());
+      } else {
+        setProfile(null);
+      }
+    });
+
+    return () => unsubscribe();
   }, [uid]);
 
   return profile;

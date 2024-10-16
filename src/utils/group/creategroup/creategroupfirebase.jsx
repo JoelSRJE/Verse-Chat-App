@@ -10,9 +10,8 @@ export const createGroupFirebase = async (
   currentUser
 ) => {
   try {
-    let groupAvatarURL = null;
+    let groupAvatarURL = null; // Hantera bilden för gruppen
 
-    // Hantera bilden för gruppen
     if (groupAvatar) {
       const avatarRef = ref(storage, `groups/${groupName}`);
       const avatarSnapshot = await uploadBytes(avatarRef, groupAvatar);
@@ -20,15 +19,19 @@ export const createGroupFirebase = async (
     } else {
       groupAvatarURL =
         "https://firebasestorage.googleapis.com/v0/b/chatt-609df.appspot.com/o/groups%2Fgroupplaceholder.png?alt=media&token=b9c2a50a-a71a-4330-a326-9fb45d15b471";
-    }
+    } // Skapa den nya gruppen
 
-    // Skapa den nya gruppen
     const newGroup = {
       groupAvatar: groupAvatarURL,
       groupName: groupName,
       groupDescription: groupDescription,
       roles: ["Owner", "Admin", "Moderator", "Member"],
-      members: [{ userId: currentUser.uid, role: "Owner" }],
+      members: [
+        {
+          userId: currentUser.uid,
+          role: "Owner",
+        },
+      ],
       channels: [
         {
           channelId: "channel-1",

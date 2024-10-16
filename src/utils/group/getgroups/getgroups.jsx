@@ -1,4 +1,5 @@
 import { db } from "@/utils/firebaseConfig";
+import { fetchUsersById } from "@/utils/user/fetchuser/fetchuser";
 import {
   getDocs,
   collection,
@@ -24,11 +25,32 @@ export const fetchGroups = async (profile) => {
     return [];
   }
 
+  const memberPromises = [];
+
   groupSnapshot.forEach((doc) => {
     const group = doc.data();
     const groupId = doc.id;
-    groupData.push({ id: groupId, ...group });
+
+    const memberIds = group.members.map((member) => member.userId);
+
+    const userPromises = memberIds.map((userId) => fetchUsersById(userId));
+
+    memberPromises.push(
+      Promise.all(userPromises).then((users) => {
+        const usersWithRoles = users.map((user) => {
+          const member = group.members.find((m) => m.userId === user.userId);
+          return {
+            ...user,
+            role: member ? member.role : null,
+          };
+        });
+
+        groupData.push({ id: groupId, ...group, members: usersWithRoles });
+      })
+    );
   });
+
+  await Promise.all(memberPromises);
 
   return groupData;
 };

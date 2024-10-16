@@ -6,24 +6,27 @@ import SidebarSearch from "@/app/components/chattapp/search/sidebarsearch";
 import MainChat from "@/app/components/mainchat/mainchat";
 
 const PrivateProfile = ({
-  profile,
   handleSelectedFriend,
   selectedFriend,
+  handleLogout,
   currentUser,
+  profile,
 }) => {
   const [activeConversation, setActiveConversation] = useState(false);
   const handleActiveConversation = (friend) => {
     setActiveConversation(friend.username);
   };
 
+  console.log("Profile: ", profile);
+
   return (
     <div className="flex">
       {/* Profile sidebar */}
       <div className="flex flex-col overflow-x-hidden">
-        <SidebarProfile currentUser={currentUser} />
+        <SidebarProfile profile={profile} />
         <SidebarSearch />
         <SidebarFriendlist
-          currentUser={currentUser}
+          profile={profile}
           onSelectFriend={handleSelectedFriend}
           activeConversation={activeConversation}
           handleActiveConversation={handleActiveConversation}
@@ -32,16 +35,12 @@ const PrivateProfile = ({
 
       {/* Conversation */}
       <div className="flex flex-col overflow-x-hidden">
-        <MainChat
-          friend={selectedFriend}
-          currentUser={currentUser}
-          profile={profile}
-        />
+        <MainChat friend={selectedFriend} profile={profile} />
       </div>
 
       {/* Details */}
       <div className="overflow-x-hidden">
-        <Details friend={selectedFriend} />
+        <Details friend={selectedFriend} handleLogout={handleLogout} />
       </div>
     </div>
   );

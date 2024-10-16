@@ -5,7 +5,7 @@ import GroupName from "@/app/components/groupcomps/groupname/groupname";
 import GroupProfile from "@/app/components/groupcomps/groupprofile/groupprofile";
 import GroupDetails from "@/app/components/groupcomps/groupdetails/groupdetails";
 
-const GroupView = ({ group, profile }) => {
+const GroupView = ({ group, profile, handleLogout }) => {
   if (!group) {
     return <div>Group not found</div>;
   }
@@ -44,7 +44,7 @@ const GroupView = ({ group, profile }) => {
 
       {/* Group details */}
       <div className="overflow-x-hidden">
-        <GroupDetails group={group} />
+        <GroupDetails group={group} handleLogout={handleLogout} />
       </div>
     </div>
   );

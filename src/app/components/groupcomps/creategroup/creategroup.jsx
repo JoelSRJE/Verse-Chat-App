@@ -3,7 +3,7 @@ import { createGroupFirebase } from "@/utils/group/creategroup/creategroupfireba
 import { useCookies } from "react-cookie";
 
 const CreateGroup = ({ setOpenGroupModal }) => {
-  const [cookies] = useCookies(["currentUser"]);
+  const [cookies] = useCookies(["currentUser", "profile"]);
   const currentUser = cookies.currentUser;
   const [groupAvatar, setGroupAvatar] = useState(null);
   const [groupName, setGroupName] = useState("");
@@ -28,9 +28,7 @@ const CreateGroup = ({ setOpenGroupModal }) => {
           currentUser
         );
         setIsSuccessfull(true);
-        setMessage("Group created successfully");
-
-        // Återställ alla fält
+        setMessage("Group created successfully"); // Återställ alla fält
         setGroupAvatar(null);
         setGroupName("");
         setGroupDescription("");
@@ -89,6 +87,7 @@ const CreateGroup = ({ setOpenGroupModal }) => {
               className="p-2 bg-transparent resize-none outline-none border-[1px] border-transparent hover:border-greenHighlight rounded-lg"
             />
           </div>
+
           <div className="flex flex-col gap-2">
             <div>
               <span className="text-lg">Description</span>

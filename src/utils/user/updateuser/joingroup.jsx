@@ -8,10 +8,8 @@ export const tryToJoin = async (uid, groupId) => {
     const groupDoc = await getDoc(groupRef);
 
     if (groupDoc.exists()) {
-      const groupData = groupDoc.data();
-      console.log("Current members in group:", groupData.members);
-      console.log("Checking if user is a member with uid:", uid);
-      // Kolla huruvida man är medlem redan.
+      const groupData = groupDoc.data(); // Kolla huruvida man är medlem redan.
+
       const isMember = groupData.members.some(
         (member) => member.userId === uid
       );
@@ -19,13 +17,14 @@ export const tryToJoin = async (uid, groupId) => {
       if (!isMember) {
         const updatedMembers = [
           ...groupData.members,
-          { userId: uid, role: "Member" },
-        ];
+          {
+            userId: uid,
+            role: "Member",
+          },
+        ]; //Uppdatera gruppens medlemmar
 
-        //Uppdatera gruppens medlemmar
-        await updateDoc(groupRef, { members: updatedMembers });
+        await updateDoc(groupRef, { members: updatedMembers }); //Uppdatera användarens grupp array.
 
-        //Uppdatera användarens grupp array.
         await updateUserGroup(uid, {
           groupId: groupId,
           role: "Member",

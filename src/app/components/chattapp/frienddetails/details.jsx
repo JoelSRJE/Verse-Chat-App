@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { CiCircleChevDown, CiCircleChevUp } from "react-icons/ci";
+import { CiCircleChevDown, CiCircleChevUp, CiLogout } from "react-icons/ci";
 
-const Details = ({ friend }) => {
+const Details = ({ friend, handleLogout }) => {
   const [toggleState, setToggleState] = useState({
     pinned: false,
     files: false,
@@ -18,7 +18,18 @@ const Details = ({ friend }) => {
   if (!friend) {
     return (
       <div className="flex flex-col justify-between items-center w-[20rem] h-full text-white rounded-r-lg overflow-x-hidden">
-        <div className="flex justify-center items-center w-full h-[8rem]  bg-[#000000]/80 text-xl font-semibold rounded-tr-lg"></div>
+        <div className="flex justify-between items-center w-full h-[4em] bg-[#000000]/80 text-xl rounded-tr-lg">
+          <div className="flex w-full justify-end h-[4rem]">
+            {/* logout */}
+            <button
+              className="flex justify-center items-center text-white w-[3rem] rounded-tr-lg hover:scale-110"
+              onClick={handleLogout}
+            >
+              <CiLogout className="scale-125" />
+            </button>
+          </div>
+        </div>
+
         <div className="flex flex-col gap-4 justify-center items-center w-full h-full bg-[#000000]/60"></div>
         <div className="w-full h-[5rem] bg-[#000000]/80 rounded-br-lg"></div>
       </div>
@@ -30,6 +41,15 @@ const Details = ({ friend }) => {
       {/* Top section */}
       <div className="flex justify-center items-center w-full h-[8rem]  bg-[#000000]/80 text-xl font-semibold rounded-tr-lg">
         Details
+        <div className="flex w-full justify-end h-[4rem]">
+          {/* logout */}
+          <button
+            className="flex justify-center items-center text-white w-[3rem] rounded-tr-lg hover:scale-110"
+            onClick={handleLogout}
+          >
+            <CiLogout className="scale-125" />
+          </button>
+        </div>
       </div>
 
       {/* friend details */}

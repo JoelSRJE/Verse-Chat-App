@@ -39,7 +39,7 @@ const MainChat = ({ friend, profile, currentUser }) => {
         {/* Top section */}
         <div className="flex items-center p-4 w-[45rem] h-[4rem] bg-[#000000]/80" />
         {/* Middle Section */}
-        <p className="flex justify-center items-center h-full text-center pt-4 bg-[#BFBCBC]/10">
+        <p className="flex justify-center items-center h-full text-center pt-4 bg-[#282828]/50">
           Välj en vän för att visa konversationen.
         </p>
         {/* Bottom section */}
@@ -79,7 +79,7 @@ const MainChat = ({ friend, profile, currentUser }) => {
       {/* The conversation */}
       {/* Middle section */}
       <div
-        className="flex flex-col w-[45rem] h-[calc(100vh-1rem)] p-4 gap-2 bg-[#BFBCBC]/10 overflow-scroll overflow-x-hidden
+        className="flex flex-col w-[45rem] h-[calc(100vh-1rem)] p-4 gap-2 bg-[#282828]/50 overflow-scroll overflow-x-hidden
         [&::-webkit-scrollbar]:w-2
         [&::-webkit-scrollbar-track]:rounded-full
         [&::-webkit-scrollbar-track]:bg-gray-300

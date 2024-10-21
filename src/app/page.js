@@ -122,23 +122,16 @@ export default function Home() {
     console.log("Cookies after logout", cookies);
   };
 
-  const toggleStatus = () => {};
-
   return (
     <div className=" flex w-screen h-screen">
       <CookiesProvider>
         {isLoggedIn && currentUser ? (
-          <div className="flex flex-col">
-            <ChattApp
-              profile={profile}
-              handleLogout={handleLogout}
-              currentUser={currentUser}
-              groupData={groupData}
-            />
-            <button className="p-4" onClick={toggleStatus}>
-              toggle group status
-            </button>
-          </div>
+          <ChattApp
+            profile={profile}
+            handleLogout={handleLogout}
+            currentUser={currentUser}
+            groupData={groupData}
+          />
         ) : (
           <AuthLandingPage handleLogin={handleLogin} />
         )}

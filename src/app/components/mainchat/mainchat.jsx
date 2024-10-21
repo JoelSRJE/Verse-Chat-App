@@ -1,39 +1,68 @@
 import React, { useEffect, useRef, useState } from "react";
 import ChatInput from "../chattapp/chatinput/chatinput";
+import { sendPrivateMessage } from "@/utils/user/sendprivatemessage/sendprivate";
+import { listenToPrivateMessages } from "@/utils/user/sendprivatemessage/listentoprivate";
 
-const MainChat = ({ friend, profile, currentUser }) => {
+const MainChat = ({ selectedFriend, profile, currentUser }) => {
   const [openPicker, setOpenPicker] = useState(false);
   const [message, setMessage] = useState("");
-
+  const [messages, setMessages] = useState([]);
   const endRef = useRef(null);
 
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [friend?.privateMessages]);
+  }, [selectedFriend?.privateMessages]);
 
-  const removeMessage = (message) => {
-    try {
-      console.log("Removing message:", message);
-    } catch (error) {
-      console.log("Error removing message: ", error);
+  useEffect(() => {
+    if (selectedFriend) {
+      const unsubscribe = listenToPrivateMessages(
+        currentUser.uid,
+        selectedFriend.friendId,
+        setMessages
+      );
+
+      return () => unsubscribe();
     }
-  };
+  }, [selectedFriend, currentUser.uid]);
 
   const handleEmoji = (e) => {
     setMessage((prev) => prev + e.emoji);
-    console.log("Stänger emoji picker");
     setTimeout(() => setOpenPicker(false), 0);
   };
 
-  const sendMessage = () => {
+  const sendMessage = async (e) => {
+    e.preventDefault();
+
     try {
-      console.log("Sending message:", message);
+      if (typeof message === "string" && message.trim()) {
+        await sendPrivateMessage({
+          uid: currentUser.uid,
+          senderName: profile.username,
+          receiverId: selectedFriend.friendId,
+          receiverName: selectedFriend.username,
+          message: message,
+        });
+        setMessage("");
+      } else {
+        console.log("Meddelandet kan inte vara tomt!");
+      }
     } catch (error) {
-      console.log("Error sending message: ", error);
+      console.log("Fel vid skickande av meddelande: ", error);
     }
   };
 
-  if (!friend) {
+  const formatDate = (timestamp) => {
+    const date = new Date(timestamp);
+    return (
+      date.toLocaleDateString("en-US", {
+        weekday: "short",
+      }) +
+      " " +
+      date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+    );
+  };
+
+  if (!selectedFriend) {
     return (
       <div className="flex flex-col justify-between w-[45rem] h-full">
         {/* Top section */}
@@ -63,17 +92,17 @@ const MainChat = ({ friend, profile, currentUser }) => {
       {/* Top section */}
       <div className="flex items-center p-4 w-[45rem] h-[4rem] bg-[#000000]/80">
         <img
-          src={friend.picture}
+          src={selectedFriend.avatar}
           className="w-[2rem] h-auto mr-2"
           alt="Friend picture"
         />
         <div className="flex justify-center items-center w-[1rem] h-[1rem] rounded-full bg-[#000000]/100 -translate-x-[1.2rem] translate-y-1/2">
           <div
             className="w-[0.5rem] h-[0.5rem] rounded-full animate-pulse"
-            style={{ backgroundColor: friend.online.color }}
+            style={{ backgroundColor: selectedFriend.online.color }}
           />
         </div>
-        <span className="text-white">{friend.username}</span>
+        <span className="text-white">{selectedFriend.username}</span>
       </div>
 
       {/* The conversation */}
@@ -88,21 +117,21 @@ const MainChat = ({ friend, profile, currentUser }) => {
         dark:[&::-webkit-scrollbar-track]:bg-neutral-700
         dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500"
       >
-        {friend.privateMessages?.length > 0 ? (
-          friend.privateMessages.map((message, idx) => (
+        {messages.length > 0 ? (
+          messages.map((message, idx) => (
             <div
               key={idx}
               className={`flex ${
-                message.from === profile[0].username
+                message.from === profile.username
                   ? "justify-end"
                   : "justify-start"
               }`}
             >
               {/* Om meddelandet är från currentUser / friend */}
-              {message.from === currentUser.username ? (
+              {message.from === profile.username ? (
                 <div className="flex items-center space-x-2 group">
                   <div className="flex flex-col items-start">
-                    <div className="relative bg-[#47a1f5]/70 text-white p-2 rounded-lg w-auto ">
+                    <div className="relative bg-[#47a1f5]/70 text-white p-2 rounded-lg w-auto max-w-[17rem]">
                       {message.message}
 
                       {/* remove message */}
@@ -113,16 +142,18 @@ const MainChat = ({ friend, profile, currentUser }) => {
                         x
                       </button>
                     </div>
-                    <span className="text-xs">1min ago</span>
+                    <span className="text-xs mr-6">
+                      {formatDate(message.sentAt)}
+                    </span>
                   </div>
 
                   <div>
                     <img
-                      src={message.picture}
-                      className="w-[2rem] h-auto rounded-full"
+                      src={profile.avatar}
+                      className="relative left-[50%] w-[2rem] h-auto rounded-full"
                       alt="Sender picture"
                     />
-                    <span className="text-xs">
+                    <span className="text-sm font-semibold tracking-wide text-gray-300">
                       {message.from.split(" ")[0]}
                     </span>
                   </div>
@@ -131,20 +162,22 @@ const MainChat = ({ friend, profile, currentUser }) => {
                 <div className="flex items-center space-x-2">
                   <div>
                     <img
-                      src={friend.picture}
+                      src={selectedFriend.avatar}
                       className="w-[2rem] h-auto rounded-full"
                       alt="Sender picture"
                     />
-                    <span className="text-xs">
+                    <span className="text-sm font-semibold tracking-wide text-gray-300">
                       {message.from.split(" ")[0]}
                     </span>
                   </div>
 
                   <div className="flex flex-col items-end">
-                    <div className="bg-[#1119004d]/20 text-white p-2 rounded-lg w-auto">
+                    <div className="bg-[#1119004d]/20 text-white p-2 rounded-lg min-w-auto max-w-[17rem]">
                       {message.message}
                     </div>
-                    <span className="text-xs">1min ago</span>
+                    <span className="text-xs ml-4">
+                      {formatDate(message.sentAt)}
+                    </span>
                   </div>
                 </div>
               )}

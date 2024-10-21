@@ -6,12 +6,10 @@ export const subscribeToUsersById = (userId, callback) => {
 
   return onSnapshot(userDocRef, (userSnapshot) => {
     if (userSnapshot.exists()) {
-      const { avatar, username, online } = userSnapshot.data();
+      const userData = userSnapshot.data();
       callback({
+        ...userData,
         userId,
-        avatar,
-        username,
-        online,
       });
     } else {
       console.log(`Användare med ID ${userId} hittades inte`);

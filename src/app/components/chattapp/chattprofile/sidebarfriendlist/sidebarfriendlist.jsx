@@ -3,25 +3,17 @@ import React from "react";
 import { CiTrash } from "react-icons/ci";
 
 const SidebarFriendlist = ({
-  profile,
+  friendsWithData,
   onSelectFriend,
   activeConversation,
   handleActiveConversation,
 }) => {
-  const removeConversation = (friend) => {
-    try {
-      console.log("Removing friend:", friend);
-    } catch (error) {
-      console.log("Error removing friend:", error);
-    }
-  };
-
   return (
     <div className="flex flex-col justify-between w-[20rem] h-full bg-[#000000]/60 text-white overflow-x-hidden">
       <div className="flex flex-col gap-1 p-2">
-        {profile.friends.map((friend, idx) => (
+        {friendsWithData.map((friend, idx) => (
           <div
-            key={idx}
+            key={friend.friendId || idx}
             onClick={() => {
               onSelectFriend(friend);
               handleActiveConversation(friend);
@@ -32,7 +24,7 @@ const SidebarFriendlist = ({
           >
             <div className="flex items-center p-2">
               <img
-                src={friend.picture}
+                src={friend.avatar}
                 className="w-[2rem] h-auto mr-2"
                 alt="Profile picture"
               />

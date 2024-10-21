@@ -9,16 +9,9 @@ import { fetchGroups } from "@/utils/group/getgroups/getgroups";
 
 const ChattApp = ({ profile, handleLogout, currentUser, groupData }) => {
   const [groups, setGroups] = useState([]);
-  const [selectedFriend, setSelectedFriend] = useState(null);
   const [selectedGroup, setSelectedGroup] = useState(null);
   const [selectedContent, setSelectedContent] = useState("welcome");
   const [openGroupModal, setOpenGroupModal] = useState(false);
-
-  /*
-Uppdaterat regler i firestore.
-Kolla så att gruppen som väljs, renderar ut korrekt grupp utifrån dess id som vi har åtkomst till.
-Behöver bara jämföra och sedan pusha korrekt data till selectedGroup
-*/
 
   useEffect(() => {
     const getGroups = async () => {
@@ -34,13 +27,6 @@ Behöver bara jämföra och sedan pusha korrekt data till selectedGroup
 
     getGroups();
   }, [profile, groupData]);
-
-  const handleSelectedFriend = (friend) => {
-    const selected = profile.friends.find(
-      (f) => f.username === friend.username
-    );
-    setSelectedFriend(selected);
-  };
 
   const handleContentChange = (content, group = null) => {
     setSelectedContent(content);
@@ -82,8 +68,6 @@ Behöver bara jämföra och sedan pusha korrekt data till selectedGroup
 
         {selectedContent === "profile" && (
           <PrivateProfile
-            handleSelectedFriend={handleSelectedFriend}
-            selectedFriend={selectedFriend}
             handleLogout={handleLogout}
             currentUser={currentUser}
             profile={profile}

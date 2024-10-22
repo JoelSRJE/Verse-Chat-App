@@ -23,9 +23,6 @@ export const sendPrivateMessage = async ({
     const userSnapshot = await getDoc(userDocRef);
     const receiverSnapshot = await getDoc(receiverDocRef);
 
-    console.log("User snapshot:", userSnapshot.data());
-    console.log("Receiver snapshot:", receiverSnapshot.data());
-
     if (userSnapshot.exists() && receiverSnapshot.exists()) {
       const userFriends = userSnapshot.data().friends || [];
       const receiverFriends = receiverSnapshot.data().friends || [];

@@ -11,7 +11,7 @@ const MainChat = ({ selectedFriend, profile, currentUser }) => {
 
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [selectedFriend?.privateMessages]);
+  }, [messages]);
 
   useEffect(() => {
     if (selectedFriend) {
@@ -44,10 +44,10 @@ const MainChat = ({ selectedFriend, profile, currentUser }) => {
         });
         setMessage("");
       } else {
-        console.log("Meddelandet kan inte vara tomt!");
+        console.log("Message can't be empty!");
       }
     } catch (error) {
-      console.log("Fel vid skickande av meddelande: ", error);
+      console.log("Error sending message: ", error);
     }
   };
 
@@ -55,7 +55,9 @@ const MainChat = ({ selectedFriend, profile, currentUser }) => {
     const date = new Date(timestamp);
     return (
       date.toLocaleDateString("en-US", {
-        weekday: "short",
+        day: "numeric",
+        month: "numeric",
+        year: "numeric",
       }) +
       " " +
       date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
@@ -64,15 +66,18 @@ const MainChat = ({ selectedFriend, profile, currentUser }) => {
 
   if (!selectedFriend) {
     return (
-      <div className="flex flex-col justify-between w-[45rem] h-full">
+      <div className="flex flex-col justify-between w-auto h-full">
         {/* Top section */}
-        <div className="flex items-center p-4 w-[45rem] h-[4rem] bg-[#000000]/80" />
+        <div className="flex items-center p-4 w-full min-h-16 bg-[#000000]/80" />
         {/* Middle Section */}
-        <p className="flex justify-center items-center h-full text-center pt-4 bg-[#282828]/50">
-          Välj en vän för att visa konversationen.
-        </p>
+        <div className="flex justify-center items-center h-full w-full bg-[#282828]/50">
+          <p className="text-white text-center pt-4">
+            Välj en vän för att visa konversation.
+          </p>
+        </div>
+
         {/* Bottom section */}
-        <div className="w-[45rem] h-[5rem] bg-[#000000]/80">
+        <div className="w-[45rem] min-h-16">
           <ChatInput
             openPicker={openPicker}
             setOpenPicker={setOpenPicker}
@@ -90,25 +95,12 @@ const MainChat = ({ selectedFriend, profile, currentUser }) => {
     <div className="flex flex-col justify-between w-[45rem] h-full">
       {/* The person you're talking to */}
       {/* Top section */}
-      <div className="flex items-center p-4 w-[45rem] h-[4rem] bg-[#000000]/80">
-        <img
-          src={selectedFriend.avatar}
-          className="w-[2rem] h-auto mr-2"
-          alt="Friend picture"
-        />
-        <div className="flex justify-center items-center w-[1rem] h-[1rem] rounded-full bg-[#000000]/100 -translate-x-[1.2rem] translate-y-1/2">
-          <div
-            className="w-[0.5rem] h-[0.5rem] rounded-full animate-pulse"
-            style={{ backgroundColor: selectedFriend.online.color }}
-          />
-        </div>
-        <span className="text-white">{selectedFriend.username}</span>
-      </div>
+      <div className="flex items-center p-4 w-[45rem] min-h-16 bg-[#000000]/80" />
 
       {/* The conversation */}
       {/* Middle section */}
       <div
-        className="flex flex-col w-[45rem] h-[calc(100vh-1rem)] p-4 gap-2 bg-[#282828]/50 overflow-scroll overflow-x-hidden
+        className="flex flex-col w-auto h-full p-4 gap-2 bg-[#282828]/50 overflow-scroll overflow-x-hidden
         [&::-webkit-scrollbar]:w-2
         [&::-webkit-scrollbar-track]:rounded-full
         [&::-webkit-scrollbar-track]:bg-gray-300
@@ -129,9 +121,9 @@ const MainChat = ({ selectedFriend, profile, currentUser }) => {
             >
               {/* Om meddelandet är från currentUser / friend */}
               {message.from === profile.username ? (
-                <div className="flex items-center space-x-2 group">
-                  <div className="flex flex-col items-start">
-                    <div className="relative bg-[#47a1f5]/70 text-white p-2 rounded-lg w-auto max-w-[17rem]">
+                <div className="flex items-end space-x-2 group">
+                  <div className="flex flex-col items-end">
+                    <div className="relative bg-[#47a1f5]/70 text-white p-2 rounded-lg max-w-[17rem]">
                       {message.message}
 
                       {/* remove message */}
@@ -142,15 +134,15 @@ const MainChat = ({ selectedFriend, profile, currentUser }) => {
                         x
                       </button>
                     </div>
-                    <span className="text-xs mr-6">
+                    <span className="text-xs text-gray-300">
                       {formatDate(message.sentAt)}
                     </span>
                   </div>
 
-                  <div>
+                  <div className="flex flex-col h-auto align-end items-center">
                     <img
                       src={profile.avatar}
-                      className="relative left-[50%] w-[2rem] h-auto rounded-full"
+                      className="w-[2rem] h-auto rounded-full"
                       alt="Sender picture"
                     />
                     <span className="text-sm font-semibold tracking-wide text-gray-300">
@@ -159,8 +151,8 @@ const MainChat = ({ selectedFriend, profile, currentUser }) => {
                   </div>
                 </div>
               ) : (
-                <div className="flex items-center space-x-2">
-                  <div>
+                <div className="flex space-x-2">
+                  <div className="flex flex-col items-center">
                     <img
                       src={selectedFriend.avatar}
                       className="w-[2rem] h-auto rounded-full"
@@ -171,16 +163,17 @@ const MainChat = ({ selectedFriend, profile, currentUser }) => {
                     </span>
                   </div>
 
-                  <div className="flex flex-col items-end">
+                  <div className="flex flex-col items-start">
+                    <span className="text-xs text-gray-300">
+                      {formatDate(message.sentAt)}
+                    </span>
                     <div className="bg-[#1119004d]/20 text-white p-2 rounded-lg min-w-auto max-w-[17rem]">
                       {message.message}
                     </div>
-                    <span className="text-xs ml-4">
-                      {formatDate(message.sentAt)}
-                    </span>
                   </div>
                 </div>
               )}
+              <div ref={endRef} />
             </div>
           ))
         ) : (
@@ -188,12 +181,11 @@ const MainChat = ({ selectedFriend, profile, currentUser }) => {
             Ingen konversation än.
           </div>
         )}
-        <div ref={endRef}></div>
       </div>
 
       {/* Chatt input */}
       {/* Bottom section */}
-      <div className="w-[45rem] h-[5rem] bg-[#000000]/80">
+      <div className="w-[45rem] min-h-16">
         <ChatInput
           openPicker={openPicker}
           setOpenPicker={setOpenPicker}

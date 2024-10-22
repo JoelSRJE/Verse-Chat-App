@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { CiCircleChevDown, CiCircleChevUp, CiLogout } from "react-icons/ci";
 
-const Details = ({ friend, handleLogout }) => {
+const Details = ({ selectedFriend, handleLogout, friendsWithData }) => {
   const [toggleState, setToggleState] = useState({
     pinned: false,
     files: false,
@@ -15,49 +15,42 @@ const Details = ({ friend, handleLogout }) => {
     }));
   };
 
-  if (!friend) {
+  if (!selectedFriend) {
     return (
-      <div className="flex flex-col justify-between items-center w-[20rem] h-full text-white rounded-r-lg overflow-x-hidden">
-        <div className="flex justify-between items-center w-full h-[4em] bg-[#000000]/80 text-xl rounded-tr-lg">
-          <div className="flex w-full justify-end h-[4rem]">
+      <div className="flex flex-col justify-between items-center w-[20rem] h-full text-white rounded-r-lg">
+        {/* Top section */}
+        <div className="flex justify-between items-center w-full min-h-16 bg-[#000000]/80 text-xl rounded-tr-lg" />
+
+        {/* Middle section */}
+        <div className="flex flex-col gap-4 justify-center items-center w-full h-full bg-[#000000]/60" />
+        <div className="w-full h-16 bg-[#000000]/80 rounded-br-lg">
+          <div className="flex w-full justify-end min-h-16">
             {/* logout */}
             <button
-              className="flex justify-center items-center text-white w-[3rem] rounded-tr-lg hover:scale-110"
+              className="abslute text-white w-12 rounded-tr-lg hover:scale-110 transition-all duration-200"
               onClick={handleLogout}
             >
               <CiLogout className="scale-125" />
             </button>
           </div>
         </div>
-
-        <div className="flex flex-col gap-4 justify-center items-center w-full h-full bg-[#000000]/60"></div>
-        <div className="w-full h-[5rem] bg-[#000000]/80 rounded-br-lg"></div>
       </div>
     );
   }
 
   return (
-    <div className="flex flex-col justify-between items-center w-[20rem] h-full text-white rounded-r-lg overflow-x-hidden">
+    <div className="flex flex-col justify-center items-center w-[20rem] h-full text-white rounded-r-lg">
       {/* Top section */}
-      <div className="flex justify-center items-center w-full h-[8rem]  bg-[#000000]/80 text-xl font-semibold rounded-tr-lg">
+      <div className="flex justify-center items-center w-full h-16 bg-[#000000]/80 text-lg rounded-tr-lg">
         Details
-        <div className="flex w-full justify-end h-[4rem]">
-          {/* logout */}
-          <button
-            className="flex justify-center items-center text-white w-[3rem] rounded-tr-lg hover:scale-110"
-            onClick={handleLogout}
-          >
-            <CiLogout className="scale-125" />
-          </button>
-        </div>
       </div>
 
       {/* friend details */}
-      <div className="flex flex-col justify-center w-[20rem] max-h-[10rem] bg-[#000000]/80 text-white p-4">
+      <div className="flex flex-col justify-center w-[20rem] h-40 bg-[#000000]/80 text-white p-4">
         <div className="flex justify-center items-center mb-4">
           {/* Profile picture */}
           <img
-            src={friend.picture}
+            src={selectedFriend.avatar}
             alt="Profile picture"
             className="w-[5rem] h-auto"
           />
@@ -65,20 +58,13 @@ const Details = ({ friend, handleLogout }) => {
           <div className="flex justify-center items-center w-[2rem] h-[2rem] rounded-full bg-[#000000]/100 -translate-x-2/3 translate-y-1/2">
             <div
               className="w-[1rem] h-[1rem] rounded-full animate-pulse"
-              style={{ backgroundColor: friend.online.color }}
+              style={{ backgroundColor: selectedFriend.online.color }}
             />
           </div>
           <span className="ml-1 text-lg font-semibold"></span>
         </div>
         <div className="flex flex-row justify-evenly">
-          <div className="flex flex-col">
-            <span className="text-lg">Username</span>
-            <span className="text-md">{friend.username}</span>
-          </div>
-          <div className="flex flex-col">
-            <span className="text-lg">friends since</span>
-            <span className="text-md">{friend.friendsSince}</span>
-          </div>
+          <span className="text-lg">{selectedFriend.username}</span>
         </div>
       </div>
 
@@ -137,7 +123,17 @@ const Details = ({ friend, handleLogout }) => {
       </div>
 
       {/* Bottom section */}
-      <div className="w-full p-4 h-[5rem] bg-[#000000]/80 rounded-br-lg"></div>
+      <div className="w-full bg-[#000000]/80 rounded-br-lg">
+        <div className="flex justify-end h-16 bg-[#000000]/80 rounded-br-lg text-white">
+          {/* logout */}
+          <button
+            className="abslute text-white w-12 rounded-tr-lg hover:scale-110 transition-all duration-200"
+            onClick={handleLogout}
+          >
+            <CiLogout className="scale-125" />
+          </button>
+        </div>
+      </div>
     </div>
   );
 };

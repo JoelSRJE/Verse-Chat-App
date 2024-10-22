@@ -55,16 +55,16 @@ const SidebarSearch = ({ profile }) => {
   };
 
   return (
-    <div className="flex flex-row justify-center items-center max-w-[20rem] h-[4rem] bg-[#000000]/60">
+    <div className="flex flex-row justify-center items-center max-w-[20rem] h-20 bg-[#000000]/60">
       <div className="flex flex-row">
         {/* Search input */}
         <input
-          className="ml-2 w-[12rem] h-[2rem] rounded-l-lg p-2 text-lg bg-[#D9D9D9]/80 outline-none placeholder:text-gray-700"
+          className="w-52 h-12 rounded-l-lg p-2 text-lg bg-[#D9D9D9]/80 outline-none placeholder:text-gray-700"
           placeholder="sök användare.."
           onClick={handleExamples}
         />
         {showExamples && (
-          <div className="absolute mt-8 ml-2 bg-[#D9D9D9]/80 w-[14rem] rounded-lg shadow-lg">
+          <div className="absolute mt-12 bg-[#D9D9D9]/80 w-72 rounded-lg shadow-lg">
             {allUsers.length > 0 ? (
               renderExamples()
             ) : (
@@ -74,7 +74,7 @@ const SidebarSearch = ({ profile }) => {
             )}
           </div>
         )}
-        <button className="flex items-center justify-center w-[2rem] h-[2rem] bg-[#D9D9D9]/80 rounded-r-lg border-1 border-l-greenHighlight">
+        <button className="flex items-center justify-center w-12 h-12 bg-[#D9D9D9]/80 rounded-r-lg border-1 border-l-greenHighlight">
           <CiSearch className="scale-125 text-xl text-white hover:text-gray-600 mr-2" />
         </button>
       </div>

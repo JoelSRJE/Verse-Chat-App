@@ -42,8 +42,8 @@ const ChattApp = ({ profile, handleLogout, currentUser, groupData }) => {
   };
 
   return (
-    <div className="overlay flex flex-row justify-center items-center w-screen h-screen p-12 overflow-x-hidden">
-      <div className="flex h-full bg-[#000000]/80 rounded-lg">
+    <div className="overlay flex flex-row justify-center items-center w-screen h-screen p-12 overflow-x-hidden min-w-full">
+      <div className="flex h-full bg-[#000000]/80 rounded-lg max-w-[87rem]">
         {/* Side, groups etc */}
         <div className="flex">
           <ChatSidebar

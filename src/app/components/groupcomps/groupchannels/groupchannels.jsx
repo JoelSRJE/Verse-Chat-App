@@ -6,7 +6,7 @@ const GroupChannels = ({ channels, activeChannel, onChannelClick }) => {
   }
 
   return (
-    <div className="bg-[#000000]/60 h-full w-full">
+    <div className="bg-[#000000]/60 h-full w-72">
       <div className="flex flex-col p-2 gap-1">
         {channels.map((channel, idx) => (
           <div

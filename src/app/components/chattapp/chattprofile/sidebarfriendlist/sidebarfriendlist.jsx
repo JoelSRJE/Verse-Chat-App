@@ -9,7 +9,7 @@ const SidebarFriendlist = ({
   handleActiveConversation,
 }) => {
   return (
-    <div className="flex flex-col justify-between w-[20rem] h-full bg-[#000000]/60 text-white overflow-x-hidden">
+    <div className="flex flex-col justify-between max-w-72 h-full bg-[#000000]/60 text-white overflow-x-hidden">
       <div className="flex flex-col gap-1 p-2">
         {friendsWithData.map((friend, idx) => (
           <div
@@ -19,7 +19,9 @@ const SidebarFriendlist = ({
               handleActiveConversation(friend);
             }}
             className={`flex justify-between items-center cursor-pointer hover:bg-[#535353]/90 rounded-lg ${
-              activeConversation === friend.username ? "bg-[#BFBCBC]/10" : ""
+              activeConversation === friend.username
+                ? "bg-[#BFBCBC]/10"
+                : " hover:scale-105 transition-all duration-200"
             }`}
           >
             <div className="flex items-center p-2">
@@ -46,9 +48,6 @@ const SidebarFriendlist = ({
           </div>
         ))}
       </div>
-
-      {/* bottom */}
-      <div className="w-[20rem] h-[4rem] bg-[#000000]/50" />
     </div>
   );
 };

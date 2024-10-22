@@ -1,10 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const LoginComponent = ({ handleContent, handleLogin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
+
+  useEffect(() => {
+    const savedEmail = localStorage.getItem("email");
+    const savedPassword = localStorage.getItem("password");
+
+    if (savedEmail) {
+      setEmail(savedEmail);
+    }
+
+    if (savedPassword) {
+      setPassword(savedPassword);
+    }
+  }, []);
 
   const handleLoginClick = async () => {
     if (!email || !password) {
@@ -17,6 +31,15 @@ const LoginComponent = ({ handleContent, handleLogin }) => {
 
     try {
       handleLogin(email, password);
+
+      if (rememberMe) {
+        localStorage.setItem("email", email);
+        localStorage.setItem("password", password);
+      } else {
+        localStorage.removeItem("email", email);
+        localStorage.removeItem("password", password);
+      }
+
       setLoading(false);
       setTimeout(() => {
         setMessage("Login successful");
@@ -60,10 +83,17 @@ const LoginComponent = ({ handleContent, handleLogin }) => {
             </button>
           </div>
         </div>
-        <div className="flex flex-row justify-start items-center gap-2 w-[12rem] hover:bg-greenHighlight">
-          <input type="checkbox" className="h-6 w-6 cursor-pointer" />
+
+        <div className="flex flex-row justify-start items-center gap-2 w-[12rem]">
+          <input
+            type="checkbox"
+            checked={rememberMe}
+            onChange={(e) => setRememberMe(e.target.checked)}
+            className="h-6 w-6 cursor-pointer shadow-lg"
+          />
           <span>Remember me</span>
         </div>
+
         <div className="flex flex-col justify-center items-center w-[15rem] gap-2 mt-2">
           <button
             className="h-[2.5rem] w-[14rem] text-lg font-semibold text-white border-2 border-greenHighlight bg-greenHighlight rounded-lg ease-in duration-200 hover:bg-transparent hover:text-greenHighlight"

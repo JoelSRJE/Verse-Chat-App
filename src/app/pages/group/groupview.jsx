@@ -7,7 +7,7 @@ import GroupDetails from "@/app/components/groupcomps/groupdetails/groupdetails"
 
 const GroupView = ({ group, profile, handleLogout }) => {
   if (!group) {
-    return <div>Group not found</div>;
+    return <div></div>;
   }
 
   const [activeChannel, setActiveChannel] = useState(
@@ -19,10 +19,12 @@ const GroupView = ({ group, profile, handleLogout }) => {
     console.log("Active channel: ", channel);
   };
 
+  console.log("Group: ", group);
+  console.log("profile: ", profile);
   return (
     <div className="flex">
       {/* Group sidebar */}
-      <div className="flex flex-col overflow-x-hidden">
+      <div className="flex flex-col overflow-x-hidden min-w-72">
         <GroupName group={group} />
         {group.channels && group.channels.length > 0 ? (
           <GroupChannels
@@ -39,11 +41,11 @@ const GroupView = ({ group, profile, handleLogout }) => {
 
       {/* Group chat */}
       <div className="overflow-x-hidden">
-        <GroupChat group={group} channel={activeChannel} />
+        <GroupChat group={group} channel={activeChannel} profile={profile} />
       </div>
 
       {/* Group details */}
-      <div className="overflow-x-hidden">
+      <div>
         <GroupDetails group={group} handleLogout={handleLogout} />
       </div>
     </div>

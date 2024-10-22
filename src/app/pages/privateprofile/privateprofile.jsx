@@ -50,6 +50,17 @@ const PrivateProfile = ({ handleLogout, currentUser, profile }) => {
     };
   }, [profile.friends]);
 
+  useEffect(() => {
+    if (selectedFriend) {
+      const updatedFriend = friendsWithData.find(
+        (friend) => friend.friendId === selectedFriend.friendId
+      );
+      if (updatedFriend) {
+        setSelectedFriend(updatedFriend);
+      }
+    }
+  }, [friendsWithData, selectedFriend]);
+
   const handleSelectedFriend = (friend) => {
     setSelectedFriend(friend);
   };
@@ -57,19 +68,22 @@ const PrivateProfile = ({ handleLogout, currentUser, profile }) => {
   const handleActiveConversation = (friend) => {
     setActiveConversation(friend.username);
   };
-
+  console.log("Selectedfriend: ", selectedFriend);
   return (
     <div className="flex">
       {/* Profile sidebar */}
-      <div className="flex flex-col overflow-x-hidden">
-        <SidebarProfile profile={profile} />
-        <SidebarSearch profile={profile} />
+      <div className="flex flex-col overflow-x-hidden ">
+        <div className="flex justify-center items-center w-full min-h-16 bg-[#0000]/80 text-white">
+          <span className="text-lg">Your messages</span>
+        </div>
+        <SidebarSearch />
         <SidebarFriendlist
           friendsWithData={friendsWithData}
           onSelectFriend={handleSelectedFriend}
           activeConversation={activeConversation}
           handleActiveConversation={handleActiveConversation}
         />
+        <SidebarProfile profile={profile} />
       </div>
 
       {/* Conversation */}
@@ -82,8 +96,8 @@ const PrivateProfile = ({ handleLogout, currentUser, profile }) => {
       </div>
 
       {/* Details */}
-      <div className="overflow-x-hidden">
-        <Details friend={selectedFriend} handleLogout={handleLogout} />
+      <div>
+        <Details selectedFriend={selectedFriend} handleLogout={handleLogout} />
       </div>
     </div>
   );

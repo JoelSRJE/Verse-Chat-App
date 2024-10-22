@@ -74,20 +74,12 @@ const GroupDetails = ({ group, handleLogout }) => {
   };
 
   return (
-    <div className="flex flex-col justify-between w-[20rem] h-full text-white rounded-r-lg overflow-x-hidden">
+    <div className="flex flex-col justify-between min-w-80 h-full text-white rounded-r-lg">
       {/* Top section */}
-      <div className="flex justify-between items-center w-full h-[4em] bg-[#000000]/80 text-xl rounded-tr-lg">
-        <span className="ml-12">Members</span>
-        <div className="flex h-[4rem]  rounded-tr-lg">
-          {/* logout */}
-          <button
-            className="flex justify-center items-center text-white w-[3rem] rounded-tr-lg hover:scale-110"
-            onClick={handleLogout}
-          >
-            <CiLogout className="scale-125" />
-          </button>
-        </div>
+      <div className="flex items-center w-full min-h-16 bg-[#000000]/80 text-xl rounded-tr-lg">
+        <span className="ml-20">Members</span>
       </div>
+
       {/* Members Section */}
       <div className="flex flex-col justify-between h-full text-xl gap-2 p-2 bg-[#000000]/60">
         {/* Online members */}
@@ -186,8 +178,19 @@ const GroupDetails = ({ group, handleLogout }) => {
           )}
         </div>
       </div>
-      {/* Bottom Section */}
-      <div className="w-[20rem] h-[4rem] bg-[#000000]/80" />
+
+      {/* Bottom section */}
+      <div className="w-full bg-[#000000]/80 rounded-br-lg">
+        <div className="flex justify-end h-16  rounded-br-lg text-white">
+          {/* logout */}
+          <button
+            className="abslute text-white w-12 rounded-tr-lg hover:scale-110 transition-all duration-200"
+            onClick={handleLogout}
+          >
+            <CiLogout className="scale-125" />
+          </button>
+        </div>
+      </div>
     </div>
   );
 };

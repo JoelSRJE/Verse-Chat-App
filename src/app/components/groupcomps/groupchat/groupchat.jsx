@@ -68,7 +68,7 @@ const GroupChat = ({ group, profile, channel }) => {
     <div className="flex flex-col justify-between w-[45rem] h-full">
       {/* Top section */}
       <div className="flex justify-center items-center w-auto min-h-16 bg-[#000000]/80 text-white">
-        {channel.channelName.replace("-")[0]}
+        {channel.channelName.replace(/-/g, " ")}
       </div>
 
       {/* Middle section */}

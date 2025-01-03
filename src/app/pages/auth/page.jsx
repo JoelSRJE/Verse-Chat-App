@@ -1,9 +1,31 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import LoginComponent from "./login/login";
 import RegisterComponent from "./register/register";
+import gsap from "gsap";
 
 const AuthLandingPage = ({ handleLogin, setIsLoggedIn }) => {
   const [rightContent, setRightContent] = useState(true);
+  const leftRef = useRef();
+  const rightRef = useRef();
+
+  useEffect(() => {
+    if (leftRef.current && rightRef.current) {
+      gsap.fromTo(
+        leftRef.current,
+        {
+          x: "-100%",
+          opacity: 0,
+        },
+        { x: "0%", opacity: 1, duration: 1, ease: "power2.out" }
+      );
+
+      gsap.fromTo(
+        rightRef.current,
+        { x: "100%", opacity: 0 },
+        { x: "0%", opacity: 1, duration: 1, ease: "power2.out" }
+      );
+    }
+  }, []);
 
   const getChar = () => {
     const appName = "Verse";
@@ -26,7 +48,7 @@ const AuthLandingPage = ({ handleLogin, setIsLoggedIn }) => {
   return (
     <div className="flex flex-row justify-center items-center w-screen h-screen">
       {/* left side */}
-      <div className="relative flex-1 max-w-fit">
+      <div ref={leftRef} className="relative flex-1 max-w-fit">
         <img
           src="/loginbg.jpg"
           alt="Picture of a phone and laptop"
@@ -41,7 +63,7 @@ const AuthLandingPage = ({ handleLogin, setIsLoggedIn }) => {
             <h1 className="text-black text-center text-5xl font-bold ">
               Welcome to {getChar()}!
             </h1>
-          </div>{" "}
+          </div>
           <span className="text-xl text-white font-semibold w-[40rem] [text-shadow:_1px_1px_2px_gray]">
             Join the conversation and stay connected with your friends and
             communities in real-time. Wether you’re chatting one-on-one or in
@@ -76,8 +98,11 @@ const AuthLandingPage = ({ handleLogin, setIsLoggedIn }) => {
       </div>
 
       {/* right side */}
-      <div className="flex flex-col flex-1 justify-center items-center w-screen h-screen bg-white rounded-l-[8px] relative">
-        {/* renderContent */}
+      <div
+        ref={rightRef}
+        className="flex flex-col flex-1 justify-center items-center w-screen h-screen bg-white rounded-l-[8px] relative"
+      >
+        {/* Switch between login/register view */}
         {rightContent ? (
           <LoginComponent
             handleContent={handleContent}

@@ -15,7 +15,6 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 
-// databas, storage och auth(för registrera & logga in)
 const db = getFirestore(app);
 const storage = getStorage(app);
 const auth = getAuth(app);

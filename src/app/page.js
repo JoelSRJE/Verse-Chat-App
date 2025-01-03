@@ -7,8 +7,11 @@ import { loginUser, logoutUser } from "@/utils/auth/authservices";
 import { updateUser } from "@/utils/user/updateuser/updateuser";
 import { useUserProfile } from "@/app/hooks/userlistener/userlistener";
 import { useGroup } from "./hooks/grouplistener/grouplistener";
+import { LoadingPage } from "./components/loading/loading";
 
 export default function Home() {
+  const [timer, setTimer] = useState(300);
+  const [showLoading, setShowLoading] = useState(true);
   const [cookies, setCookie, removeCookie] = useCookies([
     "accessToken",
     "currentUser",
@@ -122,15 +125,20 @@ export default function Home() {
     console.log("Cookies after logout", cookies);
   };
 
+  const handleLoadingFinish = () => {
+    setShowLoading(false);
+  };
+
   return (
     <div className="flex w-screen h-screen">
       <CookiesProvider>
-        {isLoggedIn && currentUser ? (
+        {showLoading ? (
+          <LoadingPage onFinish={handleLoadingFinish} />
+        ) : isLoggedIn && currentUser ? (
           <ChattApp
             profile={profile}
             handleLogout={handleLogout}
             currentUser={currentUser}
-            groupData={groupData}
           />
         ) : (
           <AuthLandingPage handleLogin={handleLogin} />
